@@ -108,7 +108,7 @@ $page_title = 'Ana Sayfa';
 
 <section class="py-5">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Platform Hizmetlerim</h2>
+        <h2 class="section-title animate-on-scroll"><?php echo getContent('services_section_title', 'Platform Hizmetlerim'); ?></h2>
         
         <div class="row">
             <?php
@@ -164,14 +164,14 @@ $page_title = 'Ana Sayfa';
         </div>
         
         <div class="text-center mt-4">
-            <a href="services.php" class="btn btn-gradient">Tüm Platform Hizmetleri</a>
+            <a href="services.php" class="btn btn-gradient"><?php echo getContent('btn_all_services', 'Tüm Platform Hizmetleri'); ?></a>
         </div>
     </div>
 </section>
 
 <section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Platformlarım</h2>
+        <h2 class="section-title animate-on-scroll"><?php echo getContent('projects_section_title', 'Platformlarım'); ?></h2>
         
         <div class="row">
             <?php

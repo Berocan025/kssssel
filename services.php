@@ -61,35 +61,35 @@ $services = getServices();
 
 <section class="py-5" style="background: rgba(108, 92, 231, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Çalışma Sürecim</h2>
+        <h2 class="section-title animate-on-scroll"><?php echo getContent('services_process_title', 'Çalışma Sürecim'); ?></h2>
         
         <div class="row">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="process-step animate-on-scroll">
                     <div class="process-number">1</div>
-                    <h5>Analiz & Planlama</h5>
-                    <p>Projenizin gereksinimlerini detaylı şekilde analiz ediyor ve en uygun çözümü planlıyorum.</p>
+                    <h5><?php echo getContent('process_step_1_title', 'Analiz & Planlama'); ?></h5>
+                    <p><?php echo getContent('process_step_1_desc', 'Projenizin gereksinimlerini detaylı şekilde analiz ediyor ve en uygun çözümü planlıyorum.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="process-step animate-on-scroll">
                     <div class="process-number">2</div>
-                    <h5>Tasarım & Prototipler</h5>
-                    <p>Kullanıcı deneyimini ön planda tutarak modern ve etkileyici tasarımlar oluşturuyorum.</p>
+                    <h5><?php echo getContent('process_step_2_title', 'Tasarım & Prototipler'); ?></h5>
+                    <p><?php echo getContent('process_step_2_desc', 'Kullanıcı deneyimini ön planda tutarak modern ve etkileyici tasarımlar oluşturuyorum.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="process-step animate-on-scroll">
                     <div class="process-number">3</div>
-                    <h5>Geliştirme & Test</h5>
-                    <p>En son teknolojiler ile kodlama yapıyor ve kapsamlı testlerle kaliteyi garanti ediyorum.</p>
+                    <h5><?php echo getContent('process_step_3_title', 'Geliştirme & Test'); ?></h5>
+                    <p><?php echo getContent('process_step_3_desc', 'En son teknolojiler ile kodlama yapıyor ve kapsamlı testlerle kaliteyi garanti ediyorum.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="process-step animate-on-scroll">
                     <div class="process-number">4</div>
-                    <h5>Teslim & Destek</h5>
-                    <p>Projenizi zamanında teslim ediyor ve sürekli teknik destek sağlıyorum.</p>
+                    <h5><?php echo getContent('process_step_4_title', 'Teslim & Destek'); ?></h5>
+                    <p><?php echo getContent('process_step_4_desc', 'Projenizi zamanında teslim ediyor ve sürekli teknik destek sağlıyorum.'); ?></p>
                 </div>
             </div>
         </div>

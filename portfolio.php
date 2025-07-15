@@ -69,7 +69,7 @@ try {
                 <div class="portfolio-filters d-flex flex-wrap justify-content-center mb-4">
                     <button class="portfolio-filter btn <?php echo $filter === 'all' ? 'btn-gradient' : 'btn-outline-gradient'; ?> me-2 mb-2" 
                             data-filter="all" onclick="filterProjects('all')">
-                        Tümü
+                        <?php echo getContent('portfolio_filter_all', 'Tümü'); ?>
                     </button>
                     <?php foreach ($categories as $category): ?>
                         <button class="portfolio-filter btn <?php echo $filter === $category ? 'btn-gradient' : 'btn-outline-gradient'; ?> me-2 mb-2" 
@@ -84,7 +84,7 @@ try {
                     <form method="GET" class="d-flex">
                         <input type="hidden" name="filter" value="<?php echo htmlspecialchars($filter); ?>">
                         <input type="text" name="search" class="form-control me-2" 
-                               placeholder="Platformlar içinde ara..." 
+                               placeholder="<?php echo getContent('portfolio_search_placeholder', 'Platformlar içinde ara...'); ?>" 
                                value="<?php echo htmlspecialchars($search); ?>">
                         <button type="submit" class="btn btn-gradient">
                             <i class="fas fa-search"></i>
