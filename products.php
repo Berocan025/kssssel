@@ -24,7 +24,7 @@ $products = getProducts();
                     <span class="text-gradient">Premium Ürünlerim</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('products_intro', '{site_brand} tarafından özel olarak tasarlanan premium kumar ürünleri. Lüks, güvenilir ve karlı çözümler.'); ?>
+                    <?php echo getContentWithVariables('products_intro', 'BERAT K - R10 tarafından özel olarak tasarlanan premium kumar ürünleri. Lüks, güvenilir ve karlı çözümler.'); ?>
                 </p>
             </div>
         </div>

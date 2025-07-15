@@ -59,7 +59,7 @@ try {
                     <span class="text-gradient">Platformlarım</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('portfolio_intro', '{site_brand} olarak yönettiğim kumar platformları ve başarılı projeler. Her platform, güvenlik ve kullanıcı deneyiminin mükemmel birleşimi.'); ?>
+                    <?php echo getContentWithVariables('portfolio_intro', 'BERAT K - R10 olarak yönettiğim kumar platformları ve başarılı projeler. Her platform, güvenlik ve kullanıcı deneyiminin mükemmel birleşimi.'); ?>
                 </p>
             </div>
         </div>

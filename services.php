@@ -24,7 +24,7 @@ $services = getServices();
                     <span class="text-gradient">Platform Hizmetlerim</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('services_intro', '{site_brand} olarak sunduğum profesyonel kumar platform hizmetleri. Güvenli, karlı ve adil oyun deneyimleri.'); ?>
+                    <?php echo getContentWithVariables('services_intro', 'BERAT K - R10 olarak sunduğum profesyonel kumar platform hizmetleri. Güvenli, karlı ve adil oyun deneyimleri.'); ?>
                 </p>
             </div>
         </div>

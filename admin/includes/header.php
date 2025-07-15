@@ -546,6 +546,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'content-management.php' ? 'active' : ''; ?>" href="content-management.php">
+                        <i class="fas fa-edit"></i>
+                        <span>İçerik Yönetimi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'footer-management.php' ? 'active' : ''; ?>" href="footer-management.php">
+                        <i class="fas fa-link"></i>
+                        <span>Footer Yönetimi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'settings.php' ? 'active' : ''; ?>" href="settings.php">
                         <i class="fas fa-cog"></i>
                         <span>Ayarlar</span>

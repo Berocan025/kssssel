@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <h5 class="text-gradient mb-3"><?php echo getSetting('site_brand', 'BERAT K - R10'); ?></h5>
-                    <p class="footer-desc"><?php echo getSetting('site_description', 'Profesyonel yazılım geliştirici olarak modern web çözümleri ve yaratıcı dijital deneyimler sunuyorum.'); ?></p>
+                    <h5 class="text-gradient mb-3"><?php echo getContent('footer_about_title', getSetting('site_brand', 'BERAT K - R10')); ?></h5>
+                    <p class="footer-desc"><?php echo getContentWithVariables('footer_about_desc', 'Kumar endüstrisinin lider CEO\'su ve yayıncısı olarak, güvenli ve karlı platformlar sunuyorum.'); ?></p>
                     <div class="social-links">
                         <?php if(getSetting('social_github')): ?>
                             <a href="<?php echo getSetting('social_github'); ?>" target="_blank" class="social-link">
@@ -31,30 +31,31 @@
                 </div>
                 
                 <div class="col-lg-2 col-md-6 mb-4">
-                    <h6 class="text-light mb-3">Sayfalar</h6>
+                    <h6 class="text-light mb-3"><?php echo getContent('footer_links_title', 'Hızlı Linkler'); ?></h6>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="index.php">Ana Sayfa</a></li>
-                        <li><a href="about.php">Hakkımda</a></li>
-                        <li><a href="services.php">Hizmetler</a></li>
-                        <li><a href="portfolio.php">Çalışmalar</a></li>
-                        <li><a href="products.php">Ürünler</a></li>
-                        <li><a href="contact.php">İletişim</a></li>
+                        <?php 
+                        $quick_links = getFooterLinks('quick_links');
+                        foreach($quick_links as $link):
+                        ?>
+                            <li><a href="<?php echo htmlspecialchars($link['link_url']); ?>"><?php echo htmlspecialchars($link['link_title']); ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-light mb-3">Hizmetler</h6>
+                    <h6 class="text-light mb-3"><?php echo getContent('footer_services_title', 'Platform Hizmetlerim'); ?></h6>
                     <ul class="list-unstyled footer-links">
-                        <li><a href="services.php#web-development">Web Geliştirme</a></li>
-                        <li><a href="services.php#mobile-development">Mobil Uygulama</a></li>
-                        <li><a href="services.php#ui-ux-design">UI/UX Tasarım</a></li>
-                        <li><a href="services.php#ecommerce">E-Ticaret</a></li>
-                        <li><a href="services.php#consulting">Danışmanlık</a></li>
+                        <?php 
+                        $service_links = getFooterLinks('services');
+                        foreach($service_links as $link):
+                        ?>
+                            <li><a href="<?php echo htmlspecialchars($link['link_url']); ?>"><?php echo htmlspecialchars($link['link_title']); ?></a></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <h6 class="text-light mb-3">İletişim</h6>
+                    <h6 class="text-light mb-3"><?php echo getContent('footer_contact_title', 'İletişim Bilgileri'); ?></h6>
                     <ul class="list-unstyled footer-links">
                         <?php if(getSetting('contact_email')): ?>
                             <li>

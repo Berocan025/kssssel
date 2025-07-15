@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span class="text-gradient">İş Birliği Yapalım</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('contact_intro', 'Kumar endüstrisinde iş birliği fırsatları için benimle iletişime geçin. {site_brand} olarak güvenli ve karlı platformlar kurmanızda size yardımcı olmak için buradayım.'); ?>
+                    <?php echo getContentWithVariables('contact_intro', 'Kumar endüstrisinde iş birliği fırsatları için benimle iletişime geçin. BERAT K - R10 olarak güvenli ve karlı platformlar kurmanızda size yardımcı olmak için buradayım.'); ?>
                 </p>
             </div>
         </div>

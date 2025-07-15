@@ -1277,4 +1277,154 @@ Bu e-posta " . $site_brand . " portfolio website iletişim formu tarafından oto
         return false;
     }
 }
+
+/**
+ * Content Management Functions
+ * Manages all site contents from database
+ */
+
+// Get content by key
+function getContent($key, $default = '') {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT content_text FROM site_contents WHERE content_key = ? AND is_active = 1");
+        $stmt->execute([$key]);
+        $result = $stmt->fetchColumn();
+        return $result !== false ? $result : $default;
+    } catch(PDOException $e) {
+        return $default;
+    }
+}
+
+// Get content with variable replacement (like getSettingWithVariables)
+function getContentWithVariables($key, $default = '') {
+    $content = getContent($key, $default);
+    
+    // Replace variables with actual settings
+    $variables = [
+        '{site_brand}' => getSetting('site_brand', 'BERAT K - R10'),
+        '{site_title}' => getSetting('site_title', 'BERAT K - R10'),
+        '{site_email}' => getSetting('contact_email', ''),
+        '{site_phone}' => getSetting('contact_phone', ''),
+        '{current_year}' => date('Y')
+    ];
+    
+    return str_replace(array_keys($variables), array_values($variables), $content);
+}
+
+// Get all contents for a specific page
+function getPageContents($page_location) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("SELECT * FROM site_contents WHERE page_location = ? AND is_active = 1 ORDER BY sort_order, content_title");
+        $stmt->execute([$page_location]);
+        return $stmt->fetchAll();
+    } catch(PDOException $e) {
+        return [];
+    }
+}
+
+// Get all site contents for admin
+function getAllContents() {
+    global $pdo;
+    try {
+        $stmt = $pdo->query("SELECT * FROM site_contents ORDER BY page_location, sort_order, content_title");
+        return $stmt->fetchAll();
+    } catch(PDOException $e) {
+        return [];
+    }
+}
+
+// Update content
+function updateContent($id, $content_text) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("UPDATE site_contents SET content_text = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
+        return $stmt->execute([$content_text, $id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+// Get footer links by section
+function getFooterLinks($section = null) {
+    global $pdo;
+    try {
+        if ($section) {
+            $stmt = $pdo->prepare("SELECT * FROM footer_links WHERE link_section = ? AND is_active = 1 ORDER BY sort_order");
+            $stmt->execute([$section]);
+        } else {
+            $stmt = $pdo->query("SELECT * FROM footer_links WHERE is_active = 1 ORDER BY link_section, sort_order");
+        }
+        return $stmt->fetchAll();
+    } catch(PDOException $e) {
+        return [];
+    }
+}
+
+// Get all footer links for admin
+function getAllFooterLinks() {
+    global $pdo;
+    try {
+        $stmt = $pdo->query("SELECT * FROM footer_links ORDER BY link_section, sort_order");
+        return $stmt->fetchAll();
+    } catch(PDOException $e) {
+        return [];
+    }
+}
+
+// Update footer link
+function updateFooterLink($id, $title, $url, $section, $sort_order) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("UPDATE footer_links SET link_title = ?, link_url = ?, link_section = ?, sort_order = ? WHERE id = ?");
+        return $stmt->execute([$title, $url, $section, $sort_order, $id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+// Add new footer link
+function addFooterLink($title, $url, $section, $sort_order = 0) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("INSERT INTO footer_links (link_title, link_url, link_section, sort_order) VALUES (?, ?, ?, ?)");
+        return $stmt->execute([$title, $url, $section, $sort_order]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+// Delete footer link
+function deleteFooterLink($id) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("DELETE FROM footer_links WHERE id = ?");
+        return $stmt->execute([$id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+// Add new site content
+function addSiteContent($key, $title, $text, $type = 'text', $location = 'general') {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("INSERT INTO site_contents (content_key, content_title, content_text, content_type, page_location) VALUES (?, ?, ?, ?, ?)");
+        return $stmt->execute([$key, $title, $text, $type, $location]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+// Delete site content
+function deleteSiteContent($id) {
+    global $pdo;
+    try {
+        $stmt = $pdo->prepare("DELETE FROM site_contents WHERE id = ?");
+        return $stmt->execute([$id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
 ?>

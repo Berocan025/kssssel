@@ -37,11 +37,11 @@ $page_title = 'Ana Sayfa';
                 
                 <div class="hero-content animate-on-scroll">
                     <h1 style="margin-bottom: 0.2rem; line-height: 1.2;">
-                        Hoş Geldiniz, Ben<br>
+                        <?php echo getContent('hero_greeting', 'Hoş Geldiniz, Ben'); ?><br>
                         <span class="text-gradient"><?php echo getSetting('hero_title', 'BERAT K'); ?> - <?php echo getSetting('hero_subtitle', 'R10'); ?></span>
                     </h1>
                     <p class="lead" style="margin-top: 0.3rem;">
-                        <?php echo getSetting('hero_description', 'Kumar platformu CEO\'su ve yayıncı olarak, endüstrinin en güvenilir ve yenilikçi oyun deneyimlerini sunuyorum. Milyonlarca oyuncunun güvendiği platformların lideri.'); ?>
+                        <?php echo getContentWithVariables('hero_description', 'Kumar platformu CEO\'su ve yayıncı olarak, endüstrinin en güvenilir ve yenilikçi oyun deneyimlerini sunuyorum. Milyonlarca oyuncunun güvendiği platformların lideri.'); ?>
                     </p>
                     <div class="hero-buttons">
                         <a href="portfolio.php" class="btn btn-gradient me-3">Platformlarım</a>
@@ -362,12 +362,64 @@ $page_title = 'Ana Sayfa';
 </section>
 <?php endif; ?>
 
+<!-- Why Choose Us Section -->
+<section class="py-5" style="background: rgba(220, 38, 38, 0.03);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5">
+                <h2 class="section-title animate-on-scroll">
+                    <?php echo getContent('why_choose_title', 'Neden BERAT K - R10 Platformlarını Seçmelisiniz?'); ?>
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4><?php echo getContent('why_choose_feature_1_title', 'Güvenli & Stabil'); ?></h4>
+                    <p><?php echo getContent('why_choose_feature_1_desc', 'Tüm platformlarımız en yüksek güvenlik standartlarında geliştirilir ve sürekli güncellenir.'); ?></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h4><?php echo getContent('why_choose_feature_2_title', 'Premium Deneyim'); ?></h4>
+                    <p><?php echo getContent('why_choose_feature_2_desc', 'Tüm cihazlarda mükemmel çalışan, kullanıcı dostu arayüzler ve premium deneyim.'); ?></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h4><?php echo getContent('why_choose_feature_3_title', 'Sürekli Destek'); ?></h4>
+                    <p><?php echo getContent('why_choose_feature_3_desc', 'Platform kurulumu sonrası teknik destek ve güncellemeler garantilidir.'); ?></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="service-card animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4><?php echo getContent('why_choose_feature_4_title', 'Yüksek Performans'); ?></h4>
+                    <p><?php echo getContent('why_choose_feature_4_desc', 'Optimize edilmiş kodlar ile yüksek performans ve hızlı yükleme süreleri.'); ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="py-5" style="background: var(--dark-card);">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h3 class="text-gradient mb-3"><?php echo getSetting('cta_title', 'İş Birliğine Başlayalım!'); ?></h3>
-                <p class="mb-0 cta-text"><?php echo getSettingWithVariables('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.'); ?></p>
+                <h3 class="text-gradient mb-3"><?php echo getContent('cta_title', 'İş Birliğine Başlayalım!'); ?></h3>
+                <p class="mb-0 cta-text"><?php echo getContentWithVariables('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.'); ?></p>
             </div>
             <div class="col-lg-4 text-lg-end">
                 <a href="contact.php" class="btn btn-gradient btn-lg">İş Birliği Yap</a>
