@@ -1460,12 +1460,44 @@ function getAllGalleryItems() {
 function addGalleryItem($title, $description, $type, $file_path, $youtube_url, $sort_order = 0) {
     global $pdo;
     if (!$pdo) {
-        require_once __DIR__ . '/../config/database.php';
+        try {
+            require_once __DIR__ . '/../config/database.php';
+        } catch (Exception $e) {
+            return false;
+        }
     }
+    
     try {
+        // Önce tablo var mı kontrol et
+        $pdo->query("SELECT 1 FROM gallery LIMIT 1");
+        
         $stmt = $pdo->prepare("INSERT INTO gallery (title, description, type, file_path, youtube_url, sort_order) VALUES (?, ?, ?, ?, ?, ?)");
         return $stmt->execute([$title, $description, $type, $file_path, $youtube_url, $sort_order]);
     } catch(PDOException $e) {
+        // Eğer tablo yoksa oluştur
+        if (strpos($e->getMessage(), 'no such table') !== false) {
+            try {
+                $sql = "CREATE TABLE IF NOT EXISTS gallery (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title VARCHAR(255) NOT NULL,
+                    description TEXT,
+                    type VARCHAR(20) NOT NULL DEFAULT 'image',
+                    file_path VARCHAR(500),
+                    youtube_url VARCHAR(500),
+                    thumbnail VARCHAR(500),
+                    sort_order INTEGER DEFAULT 0,
+                    is_active INTEGER DEFAULT 1,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )";
+                $pdo->exec($sql);
+                
+                // Tabloyu oluşturduktan sonra tekrar dene
+                $stmt = $pdo->prepare("INSERT INTO gallery (title, description, type, file_path, youtube_url, sort_order) VALUES (?, ?, ?, ?, ?, ?)");
+                return $stmt->execute([$title, $description, $type, $file_path, $youtube_url, $sort_order]);
+            } catch (Exception $e2) {
+                return false;
+            }
+        }
         return false;
     }
 }

@@ -29,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (isset($_FILES['file']) && $_FILES['file']['error'] == UPLOAD_ERR_OK) {
             $upload_dir = '../uploads/gallery/';
             if (!file_exists($upload_dir)) {
-                mkdir($upload_dir, 0755, true);
+                if (!mkdir($upload_dir, 0755, true)) {
+                    $error_message = 'Upload klasörü oluşturulamadı. Klasör izinlerini kontrol edin.';
+                }
             }
             
             $file_extension = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
@@ -60,10 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         
         if (empty($error_message)) {
-            if (addGalleryItem($title, $description, $type, $file_path, $youtube_url, $sort_order)) {
-                $success_message = 'Galeri öğesi başarıyla eklendi!';
+            // Eğer dosya yüklenmedi ve YouTube URL de yoksa hata ver
+            if (empty($file_path) && empty($youtube_url)) {
+                $error_message = 'Lütfen bir dosya yükleyin veya YouTube URL\'si girin.';
             } else {
-                $error_message = 'Galeri öğesi eklenirken bir hata oluştu.';
+                if (addGalleryItem($title, $description, $type, $file_path, $youtube_url, $sort_order)) {
+                    $success_message = 'Galeri öğesi başarıyla eklendi!';
+                } else {
+                    $error_message = 'Galeri öğesi eklenirken bir hata oluştu. Veritabanı bağlantısını kontrol edin.';
+                }
             }
         }
     }
@@ -116,6 +123,27 @@ include 'includes/header.php';
                 <div class="page-header">
                     <h1><i class="fas fa-images me-2"></i>Galeri Yönetimi</h1>
                     <p class="text-muted">Fotoğraf ve video galerisi yönetimi. YouTube entegrasyonu ve dosya yükleme desteklenir.</p>
+                    
+                    <!-- Debug Bilgileri -->
+                    <div class="alert alert-info">
+                        <small>
+                            <strong>Debug:</strong> 
+                            Gallery tablosu: <?php 
+                            try {
+                                $check = $pdo->query("SELECT COUNT(*) FROM gallery")->fetchColumn();
+                                echo "✅ $check kayıt";
+                            } catch (Exception $e) {
+                                echo "❌ Tablo bulunamadı";
+                            }
+                            ?> | 
+                            Upload klasörü: <?php 
+                            echo file_exists('../uploads/gallery/') ? '✅ Mevcut' : '❌ Yok';
+                            ?> |
+                            Upload izni: <?php
+                            echo is_writable('../uploads/') ? '✅ Yazılabilir' : '❌ Yazılamaz';
+                            ?>
+                        </small>
+                    </div>
                 </div>
 
                 <?php if ($success_message): ?>
