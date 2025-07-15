@@ -10,6 +10,28 @@ require_once 'includes/functions.php';
 checkMaintenanceMode();
 trackVisitor(); // Ziyaretçi sayacı
 $page_title = 'Ana Sayfa';
+
+// PERFORMANCE OPTIMIZATION: Load all required content and settings in bulk
+$content_keys = [
+    'hero_greeting', 'hero_description', 'services_section_title', 'btn_all_services',
+    'projects_section_title', 'why_choose_title', 'why_choose_feature_1_title',
+    'why_choose_feature_1_desc', 'why_choose_feature_2_title', 'why_choose_feature_2_desc',
+    'why_choose_feature_3_title', 'why_choose_feature_3_desc', 'why_choose_feature_4_title',
+    'why_choose_feature_4_desc', 'cta_title', 'cta_text', 'stat_projects_label',
+    'stat_clients_label', 'stat_years_label', 'stat_awards_label'
+];
+$settings_keys = [
+    'about_image', 'site_brand', 'hero_title', 'hero_subtitle', 'stat_projects',
+    'stat_clients', 'stat_years', 'stat_awards', 'blog_enabled'
+];
+
+// Load data in bulk to reduce database queries from 20+ to 2
+$bulk_content = loadBulkContent($content_keys);
+$bulk_settings = loadBulkSettings($settings_keys);
+
+// Helper function to get content/settings from bulk loaded data
+function bc($key, $default = '') { global $bulk_content; return $bulk_content[$key] ?? $default; }
+function bs($key, $default = '') { global $bulk_settings; return $bulk_settings[$key] ?? $default; }
 ?>
 
 <?php include 'includes/header.php'; ?>
@@ -20,11 +42,11 @@ $page_title = 'Ana Sayfa';
             <div class="col-12">
                 <div class="hero-image animate-on-scroll mb-4">
                     <?php 
-                    $about_image = getSetting('about_image', '');
+                    $about_image = bs('about_image', '');
                     if($about_image && file_exists($about_image)): 
                     ?>
                         <div class="hero-profile-image">
-                            <img src="<?php echo htmlspecialchars($about_image); ?>" alt="<?php echo getSetting('site_brand', 'BERAT K - R10'); ?>" class="img-fluid rounded-circle profile-img">
+                            <img src="<?php echo htmlspecialchars($about_image); ?>" alt="<?php echo bs('site_brand', 'BERAT K - R10'); ?>" class="img-fluid rounded-circle profile-img">
                         </div>
                     <?php else: ?>
                         <div class="hero-placeholder">
@@ -37,11 +59,11 @@ $page_title = 'Ana Sayfa';
                 
                 <div class="hero-content animate-on-scroll">
                     <h1 style="margin-bottom: 0.2rem; line-height: 1.2;">
-                        <?php echo getContent('hero_greeting', 'Hoş Geldiniz, Ben'); ?><br>
-                        <span class="text-gradient"><?php echo getSetting('hero_title', 'BERAT K'); ?> - <?php echo getSetting('hero_subtitle', 'R10'); ?></span>
+                        <?php echo bc('hero_greeting', 'Hoş Geldiniz, Ben'); ?><br>
+                        <span class="text-gradient"><?php echo bs('hero_title', 'BERAT K'); ?> - <?php echo bs('hero_subtitle', 'R10'); ?></span>
                     </h1>
                     <p class="lead" style="margin-top: 0.3rem;">
-                        <?php echo getContentWithVariables('hero_description', 'Kumar platformu CEO\'su ve yayıncı olarak, endüstrinin en güvenilir ve yenilikçi oyun deneyimlerini sunuyorum. Milyonlarca oyuncunun güvendiği platformların lideri.'); ?>
+                        <?php echo str_replace(['{site_brand}', '{current_year}'], [bs('site_brand', 'BERAT K - R10'), date('Y')], bc('hero_description', 'Kumar platformu CEO\'su ve yayıncı olarak, endüstrinin en güvenilir ve yenilikçi oyun deneyimlerini sunuyorum. Milyonlarca oyuncunun güvendiği platformların lideri.')); ?>
                     </p>
                     <div class="hero-buttons">
                         <a href="portfolio.php" class="btn btn-gradient me-3">Platformlarım</a>
@@ -69,37 +91,34 @@ $page_title = 'Ana Sayfa';
     <div class="container">
         <div class="row">
             <?php 
-            // Get stats from admin settings
-            $stat_projects = getSetting('stat_projects', '150');
-            $stat_clients = getSetting('stat_clients', '85'); 
-            $stat_years = getSetting('stat_years', '5');
-            $stat_awards = getSetting('stat_awards', '12');
-            
-            // Debug: Kontrol et (Bu satırı geçici olarak aktifleştirebilirsiniz)
-            echo "<!-- DEBUG: Projects: $stat_projects, Clients: $stat_clients, Years: $stat_years, Awards: $stat_awards -->";
+            // Get stats from bulk loaded data
+            $stat_projects = bs('stat_projects', '150');
+            $stat_clients = bs('stat_clients', '85'); 
+            $stat_years = bs('stat_years', '5');
+            $stat_awards = bs('stat_awards', '12');
             ?>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_projects); ?>">0+</span>
-                    <div class="stat-label"><?php echo getContent('stat_projects_label', 'Aktif Platform'); ?></div>
+                    <div class="stat-label"><?php echo bc('stat_projects_label', 'Aktif Platform'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0M+</span>
-                    <div class="stat-label"><?php echo getContent('stat_clients_label', 'Aktif Oyuncu'); ?></div>
+                    <div class="stat-label"><?php echo bc('stat_clients_label', 'Aktif Oyuncu'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_years); ?>">0+</span>
-                    <div class="stat-label"><?php echo getContent('stat_years_label', 'Yıllık Deneyim'); ?></div>
+                    <div class="stat-label"><?php echo bc('stat_years_label', 'Yıllık Deneyim'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_awards); ?>">0+</span>
-                    <div class="stat-label"><?php echo getContent('stat_awards_label', 'Endüstri Ödülü'); ?></div>
+                    <div class="stat-label"><?php echo bc('stat_awards_label', 'Endüstri Ödülü'); ?></div>
                 </div>
             </div>
         </div>
@@ -108,7 +127,7 @@ $page_title = 'Ana Sayfa';
 
 <section class="py-5">
     <div class="container">
-        <h2 class="section-title animate-on-scroll"><?php echo getContent('services_section_title', 'Platform Hizmetlerim'); ?></h2>
+                    <h2 class="section-title animate-on-scroll"><?php echo bc('services_section_title', 'Platform Hizmetlerim'); ?></h2>
         
         <div class="row">
             <?php
@@ -164,14 +183,14 @@ $page_title = 'Ana Sayfa';
         </div>
         
         <div class="text-center mt-4">
-            <a href="services.php" class="btn btn-gradient"><?php echo getContent('btn_all_services', 'Tüm Platform Hizmetleri'); ?></a>
+                            <a href="services.php" class="btn btn-gradient"><?php echo bc('btn_all_services', 'Tüm Platform Hizmetleri'); ?></a>
         </div>
     </div>
 </section>
 
 <section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll"><?php echo getContent('projects_section_title', 'Platformlarım'); ?></h2>
+                    <h2 class="section-title animate-on-scroll"><?php echo bc('projects_section_title', 'Platformlarım'); ?></h2>
         
         <div class="row">
             <?php
@@ -281,7 +300,7 @@ $page_title = 'Ana Sayfa';
     </div>
 </section>
 
-<?php if(getSetting('blog_enabled', '1') == '1'): ?>
+            <?php if(bs('blog_enabled', '1') == '1'): ?>
 <section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
         <h2 class="section-title animate-on-scroll">Platform Haberleri</h2>
@@ -368,7 +387,7 @@ $page_title = 'Ana Sayfa';
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title animate-on-scroll">
-                    <?php echo getContent('why_choose_title', 'Neden BERAT K - R10 Platformlarını Seçmelisiniz?'); ?>
+                    <?php echo bc('why_choose_title', 'Neden BERAT K - R10 Platformlarını Seçmelisiniz?'); ?>
                 </h2>
             </div>
         </div>
@@ -379,8 +398,8 @@ $page_title = 'Ana Sayfa';
                     <div class="service-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h4><?php echo getContent('why_choose_feature_1_title', 'Güvenli & Stabil'); ?></h4>
-                    <p><?php echo getContent('why_choose_feature_1_desc', 'Tüm platformlarımız en yüksek güvenlik standartlarında geliştirilir ve sürekli güncellenir.'); ?></p>
+                    <h4><?php echo bc('why_choose_feature_1_title', 'Güvenli & Stabil'); ?></h4>
+                    <p><?php echo bc('why_choose_feature_1_desc', 'Tüm platformlarımız en yüksek güvenlik standartlarında geliştirilir ve sürekli güncellenir.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -388,8 +407,8 @@ $page_title = 'Ana Sayfa';
                     <div class="service-icon">
                         <i class="fas fa-crown"></i>
                     </div>
-                    <h4><?php echo getContent('why_choose_feature_2_title', 'Premium Deneyim'); ?></h4>
-                    <p><?php echo getContent('why_choose_feature_2_desc', 'Tüm cihazlarda mükemmel çalışan, kullanıcı dostu arayüzler ve premium deneyim.'); ?></p>
+                    <h4><?php echo bc('why_choose_feature_2_title', 'Premium Deneyim'); ?></h4>
+                    <p><?php echo bc('why_choose_feature_2_desc', 'Tüm cihazlarda mükemmel çalışan, kullanıcı dostu arayüzler ve premium deneyim.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -397,8 +416,8 @@ $page_title = 'Ana Sayfa';
                     <div class="service-icon">
                         <i class="fas fa-headset"></i>
                     </div>
-                    <h4><?php echo getContent('why_choose_feature_3_title', 'Sürekli Destek'); ?></h4>
-                    <p><?php echo getContent('why_choose_feature_3_desc', 'Platform kurulumu sonrası teknik destek ve güncellemeler garantilidir.'); ?></p>
+                    <h4><?php echo bc('why_choose_feature_3_title', 'Sürekli Destek'); ?></h4>
+                    <p><?php echo bc('why_choose_feature_3_desc', 'Platform kurulumu sonrası teknik destek ve güncellemeler garantilidir.'); ?></p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
@@ -406,8 +425,8 @@ $page_title = 'Ana Sayfa';
                     <div class="service-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h4><?php echo getContent('why_choose_feature_4_title', 'Yüksek Performans'); ?></h4>
-                    <p><?php echo getContent('why_choose_feature_4_desc', 'Optimize edilmiş kodlar ile yüksek performans ve hızlı yükleme süreleri.'); ?></p>
+                    <h4><?php echo bc('why_choose_feature_4_title', 'Yüksek Performans'); ?></h4>
+                    <p><?php echo bc('why_choose_feature_4_desc', 'Optimize edilmiş kodlar ile yüksek performans ve hızlı yükleme süreleri.'); ?></p>
                 </div>
             </div>
         </div>
@@ -418,8 +437,8 @@ $page_title = 'Ana Sayfa';
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h3 class="text-gradient mb-3"><?php echo getContent('cta_title', 'İş Birliğine Başlayalım!'); ?></h3>
-                <p class="mb-0 cta-text"><?php echo getContentWithVariables('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.'); ?></p>
+                <h3 class="text-gradient mb-3"><?php echo bc('cta_title', 'İş Birliğine Başlayalım!'); ?></h3>
+                <p class="mb-0 cta-text"><?php echo str_replace(['{site_brand}', '{current_year}'], [bs('site_brand', 'BERAT K - R10'), date('Y')], bc('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.')); ?></p>
             </div>
             <div class="col-lg-4 text-lg-end">
                 <a href="contact.php" class="btn btn-gradient btn-lg">İş Birliği Yap</a>

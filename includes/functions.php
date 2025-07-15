@@ -73,11 +73,6 @@ function setSetting($key, $value) {
 }
 
 function uploadFile($file, $directory = 'uploads/') {
-    // Create debug file to track upload attempts
-    $debug_file = 'uploads/debug.log';
-    $debug_info = date('Y-m-d H:i:s') . " - Upload attempt started\n";
-    file_put_contents($debug_file, $debug_info, FILE_APPEND);
-    
     // Ensure directory ends with slash
     if (substr($directory, -1) !== '/') {
         $directory .= '/';
@@ -86,92 +81,42 @@ function uploadFile($file, $directory = 'uploads/') {
     // Create absolute path
     $abs_directory = __DIR__ . '/../' . $directory;
     
-    file_put_contents($debug_file, "Directory: $abs_directory\n", FILE_APPEND);
-    
     // Ensure the directory exists with correct permissions
     if (!is_dir($abs_directory)) {
         if (!mkdir($abs_directory, 0755, true)) {
-            $error = "Failed to create directory: $abs_directory";
-            file_put_contents($debug_file, $error . "\n", FILE_APPEND);
             return false;
         }
     }
     
     // Set permissions if directory exists
-    chmod($abs_directory, 0755);
-    
-    // Check if file was uploaded successfully
-    if (!isset($file['tmp_name']) || !isset($file['error'])) {
-        $error = "File upload error: No tmp_name or error not set";
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
-        file_put_contents($debug_file, "File array: " . print_r($file, true) . "\n", FILE_APPEND);
-        return false;
+    if (!is_writable($abs_directory)) {
+        chmod($abs_directory, 0755);
     }
     
+    // Check file upload errors
     if ($file['error'] !== UPLOAD_ERR_OK) {
-        $errors = [
-            UPLOAD_ERR_INI_SIZE => 'File too large (php.ini limit)',
-            UPLOAD_ERR_FORM_SIZE => 'File too large (form limit)',
-            UPLOAD_ERR_PARTIAL => 'File partially uploaded',
-            UPLOAD_ERR_NO_FILE => 'No file uploaded',
-            UPLOAD_ERR_NO_TMP_DIR => 'No temp directory',
-            UPLOAD_ERR_CANT_WRITE => 'Cannot write to disk',
-            UPLOAD_ERR_EXTENSION => 'Extension blocked upload'
-        ];
-        $error = "File upload error: " . ($errors[$file['error']] ?? 'Unknown error ' . $file['error']);
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
         return false;
     }
     
-    // Check if tmp_name file exists
-    if (!file_exists($file['tmp_name'])) {
-        $error = "Temporary file does not exist: " . $file['tmp_name'];
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
-        return false;
-    }
-    
-    $allowed_types = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+    // Validate file type
+    $allowed_types = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'avi', 'mov', 'wmv', 'pdf', 'doc', 'docx'];
     $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
     
     if (!in_array($file_extension, $allowed_types)) {
-        $error = "File extension not allowed: $file_extension";
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
         return false;
     }
     
-    // Check file size (max 10MB)
-    if ($file['size'] > 10 * 1024 * 1024) {
-        $error = "File too large: " . $file['size'] . " bytes";
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
-        return false;
-    }
-    
-    // Generate unique filename
-    $file_name = 'berat_' . time() . '_' . uniqid() . '.' . $file_extension;
-    $abs_file_path = $abs_directory . $file_name;
-    $rel_file_path = $directory . $file_name;
-    
-    file_put_contents($debug_file, "Target file: $abs_file_path\n", FILE_APPEND);
-    
-    // Check if directory is writable
-    if (!is_writable($abs_directory)) {
-        $error = "Directory not writable: $abs_directory (permissions: " . substr(sprintf('%o', fileperms($abs_directory)), -4) . ")";
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
-        return false;
-    }
+    // Generate safe filename
+    $filename = time() . '_' . preg_replace('/[^a-zA-Z0-9.-]/', '_', $file['name']);
+    $file_path = $abs_directory . $filename;
     
     // Move uploaded file
-    if (move_uploaded_file($file['tmp_name'], $abs_file_path)) {
-        // Set file permissions
-        chmod($abs_file_path, 0644);
-        file_put_contents($debug_file, "File uploaded successfully: $abs_file_path\n", FILE_APPEND);
-        file_put_contents($debug_file, "Returning relative path: $rel_file_path\n", FILE_APPEND);
-        return $rel_file_path;
-    } else {
-        $error = "Failed to move uploaded file from " . $file['tmp_name'] . " to " . $abs_file_path;
-        file_put_contents($debug_file, $error . "\n", FILE_APPEND);
-        return false;
+    if (move_uploaded_file($file['tmp_name'], $file_path)) {
+        // Return relative path for database storage
+        return $directory . $filename;
     }
+    
+    return false;
 }
 
 function getProjects($limit = 0) {
@@ -355,12 +300,22 @@ function getVisitorStats() {
 function getSystemStats() {
     $stats = [];
     
-    // Disk kullanımı
-    $bytes = disk_free_space(".");
-    $stats['disk_free'] = formatBytes($bytes);
-    
-    $bytes = disk_total_space(".");
-    $stats['disk_total'] = formatBytes($bytes);
+    // Disk kullanımı - güvenli kontrol
+    if (function_exists('disk_free_space')) {
+        try {
+            $bytes = disk_free_space(".");
+            $stats['disk_free'] = $bytes ? formatBytes($bytes) : 'N/A';
+            
+            $bytes = disk_total_space(".");
+            $stats['disk_total'] = $bytes ? formatBytes($bytes) : 'N/A';
+        } catch (Exception $e) {
+            $stats['disk_free'] = 'N/A';
+            $stats['disk_total'] = 'N/A';
+        }
+    } else {
+        $stats['disk_free'] = 'N/A';
+        $stats['disk_total'] = 'N/A';
+    }
     
     // Bellek kullanımı
     $stats['memory_usage'] = formatBytes(memory_get_usage(true));
@@ -1270,6 +1225,107 @@ Bu e-posta " . $site_brand . " portfolio website iletişim formu tarafından oto
  * Content Management Functions
  * Manages all site contents from database
  */
+
+// Bulk content loader - loads multiple content keys in one query
+function loadBulkContent($keys = []) {
+    static $bulk_cache = [];
+    
+    if (empty($keys)) {
+        return [];
+    }
+    
+    global $pdo;
+    if (!$pdo) {
+        try {
+            require_once __DIR__ . '/../config/database.php';
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+    
+    // Filter already cached keys
+    $missing_keys = array_diff($keys, array_keys($bulk_cache));
+    
+    if (!empty($missing_keys)) {
+        try {
+            $placeholders = str_repeat('?,', count($missing_keys) - 1) . '?';
+            $stmt = $pdo->prepare("SELECT content_key, content_text FROM site_contents WHERE content_key IN ($placeholders) AND is_active = 1");
+            $stmt->execute($missing_keys);
+            $results = $stmt->fetchAll();
+            
+            foreach ($results as $row) {
+                $bulk_cache[$row['content_key']] = $row['content_text'];
+            }
+            
+            // Cache missing keys as empty
+            foreach ($missing_keys as $key) {
+                if (!isset($bulk_cache[$key])) {
+                    $bulk_cache[$key] = '';
+                }
+            }
+        } catch(PDOException $e) {
+            // Return empty array on error
+            return [];
+        }
+    }
+    
+    $result = [];
+    foreach ($keys as $key) {
+        $result[$key] = $bulk_cache[$key] ?? '';
+    }
+    
+    return $result;
+}
+
+// Bulk settings loader
+function loadBulkSettings($keys = []) {
+    static $settings_cache = [];
+    
+    if (empty($keys)) {
+        return [];
+    }
+    
+    global $pdo;
+    if (!$pdo) {
+        try {
+            require_once __DIR__ . '/../config/database.php';
+        } catch (Exception $e) {
+            return [];
+        }
+    }
+    
+    // Filter already cached keys
+    $missing_keys = array_diff($keys, array_keys($settings_cache));
+    
+    if (!empty($missing_keys)) {
+        try {
+            $placeholders = str_repeat('?,', count($missing_keys) - 1) . '?';
+            $stmt = $pdo->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ($placeholders)");
+            $stmt->execute($missing_keys);
+            $results = $stmt->fetchAll();
+            
+            foreach ($results as $row) {
+                $settings_cache[$row['setting_key']] = $row['setting_value'];
+            }
+            
+            // Cache missing keys as empty
+            foreach ($missing_keys as $key) {
+                if (!isset($settings_cache[$key])) {
+                    $settings_cache[$key] = '';
+                }
+            }
+        } catch(PDOException $e) {
+            return [];
+        }
+    }
+    
+    $result = [];
+    foreach ($keys as $key) {
+        $result[$key] = $settings_cache[$key] ?? '';
+    }
+    
+    return $result;
+}
 
 // Get content by key
 function getContent($key, $default = '') {
