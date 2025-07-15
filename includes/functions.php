@@ -1273,22 +1273,43 @@ Bu e-posta " . $site_brand . " portfolio website iletişim formu tarafından oto
 
 // Get content by key
 function getContent($key, $default = '') {
+    static $cache = [];
+    
+    // Cache kontrolü - sonsuz döngü önleme
+    if (isset($cache[$key])) {
+        return $cache[$key];
+    }
+    
     global $pdo;
     if (!$pdo) {
-        require_once __DIR__ . '/../config/database.php';
+        try {
+            require_once __DIR__ . '/../config/database.php';
+        } catch (Exception $e) {
+            $cache[$key] = $default;
+            return $default;
+        }
     }
+    
     try {
         $stmt = $pdo->prepare("SELECT content_text FROM site_contents WHERE content_key = ? AND is_active = 1");
         $stmt->execute([$key]);
         $result = $stmt->fetchColumn();
-        return $result !== false ? $result : $default;
+        $cache[$key] = $result !== false ? $result : $default;
+        return $cache[$key];
     } catch(PDOException $e) {
+        $cache[$key] = $default;
         return $default;
     }
 }
 
 // Get content with variable replacement (like getSettingWithVariables)
 function getContentWithVariables($key, $default = '') {
+    static $var_cache = [];
+    
+    if (isset($var_cache[$key])) {
+        return $var_cache[$key];
+    }
+    
     $content = getContent($key, $default);
     
     // Replace variables with actual settings
@@ -1300,7 +1321,8 @@ function getContentWithVariables($key, $default = '') {
         '{current_year}' => date('Y')
     ];
     
-    return str_replace(array_keys($variables), array_values($variables), $content);
+    $var_cache[$key] = str_replace(array_keys($variables), array_values($variables), $content);
+    return $var_cache[$key];
 }
 
 // Get all contents for a specific page
