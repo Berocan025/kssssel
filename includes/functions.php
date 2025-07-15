@@ -57,22 +57,7 @@ function getSetting($key, $default = '') {
     }
 }
 
-function getSettingWithVariables($key, $default = '') {
-    $value = getSetting($key, $default);
-    
-    // Dinamik değişkenleri değiştir
-    $site_brand = getSetting('site_brand', 'BERAT K - R10');
-    $site_title = getSetting('site_title', 'BERAT K - R10');
-    $site_slogan = getSetting('site_slogan', 'Profesyonel Çözümler');
-    
-    $variables = [
-        '{site_brand}' => $site_brand,
-        '{site_title}' => $site_title,
-        '{site_slogan}' => $site_slogan
-    ];
-    
-    return str_replace(array_keys($variables), array_values($variables), $value);
-}
+
 
 function setSetting($key, $value) {
     global $pdo;
@@ -1285,8 +1270,8 @@ Bu e-posta " . $site_brand . " portfolio website iletişim formu tarafından oto
 
 // Get content by key
 function getContent($key, $default = '') {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("SELECT content_text FROM site_contents WHERE content_key = ? AND is_active = 1");
         $stmt->execute([$key]);
         $result = $stmt->fetchColumn();
@@ -1314,8 +1299,8 @@ function getContentWithVariables($key, $default = '') {
 
 // Get all contents for a specific page
 function getPageContents($page_location) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("SELECT * FROM site_contents WHERE page_location = ? AND is_active = 1 ORDER BY sort_order, content_title");
         $stmt->execute([$page_location]);
         return $stmt->fetchAll();
@@ -1326,8 +1311,8 @@ function getPageContents($page_location) {
 
 // Get all site contents for admin
 function getAllContents() {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->query("SELECT * FROM site_contents ORDER BY page_location, sort_order, content_title");
         return $stmt->fetchAll();
     } catch(PDOException $e) {
@@ -1337,8 +1322,8 @@ function getAllContents() {
 
 // Update content
 function updateContent($id, $content_text) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("UPDATE site_contents SET content_text = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
         return $stmt->execute([$content_text, $id]);
     } catch(PDOException $e) {
@@ -1348,8 +1333,8 @@ function updateContent($id, $content_text) {
 
 // Get footer links by section
 function getFooterLinks($section = null) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         if ($section) {
             $stmt = $pdo->prepare("SELECT * FROM footer_links WHERE link_section = ? AND is_active = 1 ORDER BY sort_order");
             $stmt->execute([$section]);
@@ -1364,8 +1349,8 @@ function getFooterLinks($section = null) {
 
 // Get all footer links for admin
 function getAllFooterLinks() {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->query("SELECT * FROM footer_links ORDER BY link_section, sort_order");
         return $stmt->fetchAll();
     } catch(PDOException $e) {
@@ -1375,8 +1360,8 @@ function getAllFooterLinks() {
 
 // Update footer link
 function updateFooterLink($id, $title, $url, $section, $sort_order) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("UPDATE footer_links SET link_title = ?, link_url = ?, link_section = ?, sort_order = ? WHERE id = ?");
         return $stmt->execute([$title, $url, $section, $sort_order, $id]);
     } catch(PDOException $e) {
@@ -1386,8 +1371,8 @@ function updateFooterLink($id, $title, $url, $section, $sort_order) {
 
 // Add new footer link
 function addFooterLink($title, $url, $section, $sort_order = 0) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("INSERT INTO footer_links (link_title, link_url, link_section, sort_order) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$title, $url, $section, $sort_order]);
     } catch(PDOException $e) {
@@ -1397,8 +1382,8 @@ function addFooterLink($title, $url, $section, $sort_order = 0) {
 
 // Delete footer link
 function deleteFooterLink($id) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("DELETE FROM footer_links WHERE id = ?");
         return $stmt->execute([$id]);
     } catch(PDOException $e) {
@@ -1408,8 +1393,8 @@ function deleteFooterLink($id) {
 
 // Add new site content
 function addSiteContent($key, $title, $text, $type = 'text', $location = 'general') {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("INSERT INTO site_contents (content_key, content_title, content_text, content_type, page_location) VALUES (?, ?, ?, ?, ?)");
         return $stmt->execute([$key, $title, $text, $type, $location]);
     } catch(PDOException $e) {
@@ -1419,12 +1404,27 @@ function addSiteContent($key, $title, $text, $type = 'text', $location = 'genera
 
 // Delete site content
 function deleteSiteContent($id) {
-    global $pdo;
     try {
+        require_once __DIR__ . '/../config/database.php';
         $stmt = $pdo->prepare("DELETE FROM site_contents WHERE id = ?");
         return $stmt->execute([$id]);
     } catch(PDOException $e) {
         return false;
     }
+}
+
+// Get content with variable replacement
+function getContentWithVariables($key, $default = '') {
+    $content = getContent($key, $default);
+    
+    // Replace variables
+    $variables = [
+        '{site_brand}' => getSetting('site_brand', 'BERAT K - R10'),
+        '{current_year}' => date('Y'),
+        '{admin_name}' => getSetting('admin_name', 'BERAT K'),
+        '{site_email}' => getSetting('site_email', 'info@beratk.com')
+    ];
+    
+    return str_replace(array_keys($variables), array_values($variables), $content);
 }
 ?>

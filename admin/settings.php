@@ -132,27 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (isset($_POST['footer_text'])) {
                 setSetting('footer_text', clean($_POST['footer_text']));
             }
-            if (isset($_POST['cta_title'])) {
-                setSetting('cta_title', clean($_POST['cta_title']));
-            }
-            if (isset($_POST['cta_text'])) {
-                setSetting('cta_text', clean($_POST['cta_text']));
-            }
-            if (isset($_POST['services_intro'])) {
-                setSetting('services_intro', clean($_POST['services_intro']));
-            }
-            if (isset($_POST['portfolio_intro'])) {
-                setSetting('portfolio_intro', clean($_POST['portfolio_intro']));
-            }
-            if (isset($_POST['products_intro'])) {
-                setSetting('products_intro', clean($_POST['products_intro']));
-            }
-            if (isset($_POST['contact_intro'])) {
-                setSetting('contact_intro', clean($_POST['contact_intro']));
-            }
-            if (isset($_POST['about_intro'])) {
-                setSetting('about_intro', clean($_POST['about_intro']));
-            }
+
             $success_message = 'Site metinleri başarıyla güncellendi.';
         } catch(PDOException $e) {
             $error_message = 'Site metinleri güncellenirken hata oluştu.';
@@ -453,13 +433,7 @@ $settings = [
     'site_brand' => getSetting('site_brand', 'BERAT K - R10'),
     'site_slogan' => getSetting('site_slogan', 'Profesyonel Çözümler'),
     'footer_text' => getSetting('footer_text', 'Fikirlerinizi gerçeğe dönüştürmek için bir adım uzaktasınız. {site_brand} ile profesyonel çözümler keşfedin.'),
-    'cta_title' => getSetting('cta_title', 'Projene Başlayalım!'),
-    'cta_text' => getSetting('cta_text', 'Fikrini gerçeğe dönüştürmek için benimle iletişime geç. {site_brand} ile profesyonel çözümler.'),
-    'services_intro' => getSetting('services_intro', '{site_brand} olarak sunduğum profesyonel yazılım geliştirme hizmetleri. Modern teknolojiler ile yaratıcı çözümler.'),
-    'portfolio_intro' => getSetting('portfolio_intro', '{site_brand} olarak gerçekleştirdiğim projeler ve yaratıcı çözümler. Her proje, teknoloji ve tasarımın mükemmel birleşimi.'),
-    'products_intro' => getSetting('products_intro', '{site_brand} tarafından geliştirilmiş hazır yazılım çözümleri. Kaliteli, güvenilir ve kullanıma hazır ürünler.'),
-    'contact_intro' => getSetting('contact_intro', 'Projeniz hakkında konuşmak için benimle iletişime geçin. {site_brand} olarak size en iyi hizmeti sunmak için buradayım.'),
-    'about_intro' => getSetting('about_intro', 'Yazılım geliştirme alanında uzmanlaşmış bir profesyonelim.'),
+
     'primary_color' => getSetting('primary_color', '#6c5ce7'),
     'secondary_color' => getSetting('secondary_color', '#fd79a8'),
     'accent_color' => getSetting('accent_color', '#74b9ff'),
@@ -763,41 +737,7 @@ $settings = [
                                         </div>
                                     </div>
                                     
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">Hizmetler Sayfası Giriş Metni</label>
-                                        <textarea class="form-control" name="services_intro" rows="3"><?php echo htmlspecialchars($settings['services_intro']); ?></textarea>
-                                        <small class="text-muted">{site_brand} yazdığınız yerlere marka adı otomatik geçer</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">Portfolyo Sayfası Giriş Metni</label>
-                                        <textarea class="form-control" name="portfolio_intro" rows="3"><?php echo htmlspecialchars($settings['portfolio_intro']); ?></textarea>
-                                        <small class="text-muted">{site_brand} yazdığınız yerlere marka adı otomatik geçer</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">Ürünler Sayfası Giriş Metni</label>
-                                        <textarea class="form-control" name="products_intro" rows="3"><?php echo htmlspecialchars($settings['products_intro']); ?></textarea>
-                                        <small class="text-muted">{site_brand} yazdığınız yerlere marka adı otomatik geçer</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">İletişim Sayfası Giriş Metni</label>
-                                        <textarea class="form-control" name="contact_intro" rows="3"><?php echo htmlspecialchars($settings['contact_intro']); ?></textarea>
-                                        <small class="text-muted">{site_brand} yazdığınız yerlere marka adı otomatik geçer</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">CTA (Çağrı) Başlığı</label>
-                                        <input type="text" class="form-control" name="cta_title" value="<?php echo htmlspecialchars($settings['cta_title']); ?>">
-                                        <small class="text-muted">Ana sayfadaki çağrı başlığı (örn: Projene Başlayalım!)</small>
-                                    </div>
-                                    
-                                    <div class="mb-3">
-                                        <label class="form-label text-light">CTA (Çağrı) Metni</label>
-                                        <textarea class="form-control" name="cta_text" rows="2"><?php echo htmlspecialchars($settings['cta_text']); ?></textarea>
-                                        <small class="text-muted">Ana sayfadaki çağrı metni. {site_brand} yazdığınız yerlere marka adı otomatik geçer</small>
-                                    </div>
+                                    <!-- Content Management için İçerik Yönetimi bölümünü kullanın -->
                                     
                                     <div class="mb-3">
                                         <label class="form-label text-light">Footer Metni</label>

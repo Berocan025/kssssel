@@ -282,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row align-items-center">
             <div class="col-lg-8">
                 <h3 class="text-gradient mb-3">Projenize Hemen Başlayalım!</h3>
-                <p class="mb-0"><?php echo getSettingWithVariables('footer_text', 'Fikirlerinizi gerçeğe dönüştürmek için bir adım uzaktasınız. {site_brand} ile profesyonel çözümler keşfedin.'); ?></p>
+                <p class="mb-0"><?php echo getContentWithVariables('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.'); ?></p>
             </div>
             <div class="col-lg-4 text-lg-end">
                 <a href="portfolio.php" class="btn btn-outline-gradient btn-lg me-3">Çalışmalarım</a>
