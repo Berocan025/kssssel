@@ -149,6 +149,9 @@
                         <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'active' : ''; ?>" href="portfolio.php">Platformlar</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'gallery.php' ? 'active' : ''; ?>" href="gallery.php">Galeri</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'products.php' ? 'active' : ''; ?>" href="products.php">Premium Ürünler</a>
                     </li>
                     <?php if(getSetting('blog_enabled', '1') == '1'): ?>

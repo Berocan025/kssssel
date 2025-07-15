@@ -90,7 +90,7 @@ $about_image = getSetting('about_image', '');
 <?php if($about_skills): ?>
 <section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Uzmanlık Alanlarım</h2>
+        <h2 class="section-title animate-on-scroll"><?php echo getContent('about_skills_title', 'Uzmanlık Alanlarım'); ?></h2>
         
         <div class="row">
             <div class="col-lg-10 mx-auto">
@@ -122,9 +122,9 @@ $about_image = getSetting('about_image', '');
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title animate-on-scroll">
-                    <i class="fas fa-crown me-3"></i>Kariyer Yolculuğum
+                    <i class="fas fa-crown me-3"></i><?php echo getContent('about_experience_title', 'Kariyer Yolculuğum'); ?>
                 </h2>
-                <p class="lead text-muted">Kumar endüstrisinde liderlik pozisyonlarında edindiğim deneyimler ve başarılarım.</p>
+                <p class="lead text-muted"><?php echo getContent('about_experience_desc', 'Kumar endüstrisinde liderlik pozisyonlarında edindiğim deneyimler ve başarılarım.'); ?></p>
             </div>
         </div>
         
@@ -178,9 +178,9 @@ $about_image = getSetting('about_image', '');
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title animate-on-scroll">
-                    <i class="fas fa-trophy me-3"></i>Eğitim & Sertifikalarım
+                    <i class="fas fa-trophy me-3"></i><?php echo getContent('about_education_title', 'Eğitim & Sertifikalarım'); ?>
                 </h2>
-                <p class="lead text-muted">Kumar endüstrisinde aldığım eğitimler, uzmanlık sertifikaları ve sürekli gelişim yolculuğum.</p>
+                <p class="lead text-muted"><?php echo getContent('about_education_desc', 'Kumar endüstrisinde aldığım eğitimler, uzmanlık sertifikaları ve sürekli gelişim yolculuğum.'); ?></p>
             </div>
         </div>
         

@@ -1421,6 +1421,83 @@ function deleteFooterLink($id) {
     }
 }
 
+// Gallery Management Functions
+function getAllGalleryItems() {
+    global $pdo;
+    if (!$pdo) {
+        require_once __DIR__ . '/../config/database.php';
+    }
+    try {
+        $stmt = $pdo->query("SELECT * FROM gallery ORDER BY sort_order ASC, created_at DESC");
+        return $stmt->fetchAll();
+    } catch(PDOException $e) {
+        return [];
+    }
+}
+
+function addGalleryItem($title, $description, $type, $file_path, $youtube_url, $sort_order = 0) {
+    global $pdo;
+    if (!$pdo) {
+        require_once __DIR__ . '/../config/database.php';
+    }
+    try {
+        $stmt = $pdo->prepare("INSERT INTO gallery (title, description, type, file_path, youtube_url, sort_order) VALUES (?, ?, ?, ?, ?, ?)");
+        return $stmt->execute([$title, $description, $type, $file_path, $youtube_url, $sort_order]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+function updateGalleryItem($id, $title, $description, $type, $youtube_url, $sort_order) {
+    global $pdo;
+    if (!$pdo) {
+        require_once __DIR__ . '/../config/database.php';
+    }
+    try {
+        $stmt = $pdo->prepare("UPDATE gallery SET title = ?, description = ?, type = ?, youtube_url = ?, sort_order = ? WHERE id = ?");
+        return $stmt->execute([$title, $description, $type, $youtube_url, $sort_order, $id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+function deleteGalleryItem($id) {
+    global $pdo;
+    if (!$pdo) {
+        require_once __DIR__ . '/../config/database.php';
+    }
+    try {
+        // Önce dosya yolunu al
+        $stmt = $pdo->prepare("SELECT file_path FROM gallery WHERE id = ?");
+        $stmt->execute([$id]);
+        $item = $stmt->fetch();
+        
+        // Dosyayı sil
+        if ($item && !empty($item['file_path']) && file_exists($item['file_path'])) {
+            unlink($item['file_path']);
+        }
+        
+        // Veritabanından sil
+        $stmt = $pdo->prepare("DELETE FROM gallery WHERE id = ?");
+        return $stmt->execute([$id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
+function toggleGalleryStatus($id, $status) {
+    global $pdo;
+    if (!$pdo) {
+        require_once __DIR__ . '/../config/database.php';
+    }
+    try {
+        $stmt = $pdo->prepare("UPDATE gallery SET is_active = ? WHERE id = ?");
+        return $stmt->execute([$status, $id]);
+    } catch(PDOException $e) {
+        return false;
+    }
+}
+
 // Add new site content
 function addSiteContent($key, $title, $text, $type = 'text', $location = 'general') {
     try {

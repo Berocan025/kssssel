@@ -552,6 +552,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'gallery-management.php' ? 'active' : ''; ?>" href="gallery-management.php">
+                        <i class="fas fa-images"></i>
+                        <span>Galeri Yönetimi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'footer-management.php' ? 'active' : ''; ?>" href="footer-management.php">
                         <i class="fas fa-link"></i>
                         <span>Footer Yönetimi</span>

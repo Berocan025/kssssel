@@ -45,7 +45,36 @@ try {
     $pdo->exec($sql_footer);
     echo "<p>✅ footer_links tablosu hazır!</p>";
     
-    // 3. Ana sayfadaki eksik içerikleri ekle
+    // 3. gallery tablosunu oluştur
+    $sql_gallery = "CREATE TABLE IF NOT EXISTS gallery (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        type VARCHAR(20) NOT NULL DEFAULT 'image',
+        file_path VARCHAR(500),
+        youtube_url VARCHAR(500),
+        thumbnail VARCHAR(500),
+        sort_order INTEGER DEFAULT 0,
+        is_active INTEGER DEFAULT 1,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )";
+    
+    $pdo->exec($sql_gallery);
+    echo "<p>✅ gallery tablosu hazır!</p>";
+    
+    // 4. Galeri uploads klasörünü oluştur
+    $upload_dir = 'uploads/gallery/';
+    if (!file_exists($upload_dir)) {
+        if (mkdir($upload_dir, 0755, true)) {
+            echo "<p>✅ Galeri upload klasörü oluşturuldu!</p>";
+        } else {
+            echo "<p>⚠️ Galeri upload klasörü oluşturulamadı!</p>";
+        }
+    } else {
+        echo "<p>✅ Galeri upload klasörü zaten mevcut!</p>";
+    }
+    
+    // 5. Ana sayfadaki eksik içerikleri ekle
     $contents = [
         // Neden Bizimle Çalışmalısınız Bölümü
         ['why_choose_title', '"Neden Bizimle Çalışmalısınız?" Başlığı', 'Neden BERAT K - R10 Platformlarını Seçmelisiniz?', 'text', 'index'],
@@ -92,9 +121,11 @@ try {
         ['about_page_title', 'Hakkımda Sayfa Başlığı', 'Hakkımda', 'text', 'about'],
         ['about_page_subtitle', 'Hakkımda Sayfa Alt Başlığı', 'Kumar Platform CEO\'su & Endüstri Yayıncısı', 'text', 'about'],
         ['about_page_description', 'Hakkımda Sayfa Açıklaması', 'Kumar endüstrisinde uzmanlaşmış bir CEO ve yayıncıyım. Güvenli, adil ve karlı oyun platformları inşa etme konusunda geniş deneyime sahibim.', 'textarea', 'about'],
-        ['about_skills_title', 'Yetenekler Başlığı', 'Profesyonel Yeteneklerim', 'text', 'about'],
-        ['about_experience_title', 'Deneyim Başlığı', 'İş Deneyimim', 'text', 'about'],
-        ['about_education_title', 'Eğitim Başlığı', 'Eğitim & Sertifikalar', 'text', 'about'],
+        ['about_skills_title', 'Uzmanlık Alanları Başlığı', 'Uzmanlık Alanlarım', 'text', 'about'],
+        ['about_experience_title', 'Kariyer Başlığı', 'Kariyer Yolculuğum', 'text', 'about'],
+        ['about_experience_desc', 'Kariyer Açıklaması', 'Kumar endüstrisinde liderlik pozisyonlarında edindiğim deneyimler ve başarılarım.', 'textarea', 'about'],
+        ['about_education_title', 'Eğitim Başlığı', 'Eğitim & Sertifikalarım', 'text', 'about'],
+        ['about_education_desc', 'Eğitim Açıklaması', 'Kumar endüstrisinde aldığım eğitimler, uzmanlık sertifikaları ve sürekli gelişim yolculuğum.', 'textarea', 'about'],
         
         // İletişim Sayfası İçerikleri
         ['contact_page_title', 'İletişim Sayfa Başlığı', 'İş Birliği Yapalım', 'text', 'contact'],
@@ -126,6 +157,17 @@ try {
         ['blog_intro', 'Blog Giriş Metni', 'Kumar endüstrisi, platform yönetimi ve teknoloji hakkında güncel yazılar.', 'textarea', 'blog'],
         ['blog_no_posts', 'Blog Yazı Yok Mesajı', 'Henüz blog yazısı yok', 'text', 'blog'],
         ['blog_no_posts_desc', 'Blog Yazı Yok Açıklaması', 'Blog yazıları yayınlandığında burada görünecek.', 'text', 'blog'],
+        
+        // Galeri Sayfası İçerikleri
+        ['gallery_page_title', 'Galeri Sayfa Başlığı', 'Platform Galerisi', 'text', 'gallery'],
+        ['gallery_intro', 'Galeri Giriş Metni', 'Platformlarımızdan fotoğraflar, videolar ve görsel içerikler. İş dünyamdan kareler ve başarı hikâyeleri.', 'textarea', 'gallery'],
+        ['gallery_photos_title', 'Fotoğraflar Başlığı', 'Fotoğraflar', 'text', 'gallery'],
+        ['gallery_videos_title', 'Videolar Başlığı', 'Videolar', 'text', 'gallery'],
+        ['gallery_filter_all', 'Galeri Filtre Tümü', 'Tümü', 'text', 'gallery'],
+        ['gallery_filter_photos', 'Galeri Filtre Fotoğraflar', 'Fotoğraflar', 'text', 'gallery'],
+        ['gallery_filter_videos', 'Galeri Filtre Videolar', 'Videolar', 'text', 'gallery'],
+        ['gallery_no_items', 'Galeri Boş Mesajı', 'Henüz galeri öğesi yok', 'text', 'gallery'],
+        ['gallery_no_items_desc', 'Galeri Boş Açıklaması', 'Galeri öğeleri yayınlandığında burada görünecek.', 'text', 'gallery'],
         
         // Form Metinleri
         ['form_name_label', 'İsim Alanı Etiketi', 'Adınız', 'text', 'forms'],
@@ -160,6 +202,7 @@ try {
     }
     
     echo "<p>✅ $added_count adet içerik eklendi/güncellendi!</p>";
+    echo "<p>📝 Yeni eklenen içerikler: Ana sayfa 'Neden bizimle çalışmalısınız', Hakkımda bölümleri, Galeri metinleri!</p>";
     
     // 4. Footer linklerini ekle
     $footer_links = [
@@ -187,7 +230,7 @@ try {
     
     echo "<p>✅ $footer_count adet footer linki eklendi!</p>";
     
-    // 5. İstatistik değerlerini güncelle
+    // 6. İstatistik değerlerini güncelle
     $stats = [
         'stat_projects' => '150',
         'stat_clients' => '85',
@@ -207,11 +250,14 @@ try {
     echo "<ul>";
     echo "<li>✅ $added_count adet içerik eklendi</li>";
     echo "<li>✅ $footer_count adet footer linki eklendi</li>";
+    echo "<li>✅ Galeri sistemi kuruldu</li>";
     echo "<li>✅ İstatistik değerleri düzeltildi</li>";
     echo "<li>✅ Yavaşlık sorunu çözüldü</li>";
     echo "</ul>";
     echo "<p><a href='admin/content-management.php' style='color: #007bff;'>Admin Paneli → İçerik Yönetimi</a> sayfasından tüm metinleri düzenleyebilirsiniz.</p>";
+    echo "<p><a href='admin/gallery-management.php' style='color: #007bff;'>Admin Paneli → Galeri Yönetimi</a> sayfasından fotoğraf ve video yükleyebilirsiniz.</p>";
     echo "<p><a href='admin/footer-management.php' style='color: #007bff;'>Admin Paneli → Footer Yönetimi</a> sayfasından footer linklerini yönetebilirsiniz.</p>";
+    echo "<p><a href='gallery.php' style='color: #007bff;'>Galeri Sayfası</a> - Yeni oluşturulan galeri sayfasını görüntüleyin.</p>";
     echo "</div>";
     
     echo "<p style='color: red; font-weight: bold;'>⚠️ Bu dosyayı silmeyi unutmayın!</p>";
