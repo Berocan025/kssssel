@@ -1348,8 +1348,11 @@ function updateContent($id, $content_text) {
 
 // Get footer links by section
 function getFooterLinks($section = null) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         if ($section) {
             $stmt = $pdo->prepare("SELECT * FROM footer_links WHERE link_section = ? AND is_active = 1 ORDER BY sort_order");
             $stmt->execute([$section]);
@@ -1364,8 +1367,11 @@ function getFooterLinks($section = null) {
 
 // Get all footer links for admin
 function getAllFooterLinks() {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->query("SELECT * FROM footer_links ORDER BY link_section, sort_order");
         return $stmt->fetchAll();
     } catch(PDOException $e) {
@@ -1375,8 +1381,11 @@ function getAllFooterLinks() {
 
 // Update footer link
 function updateFooterLink($id, $title, $url, $section, $sort_order) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("UPDATE footer_links SET link_title = ?, link_url = ?, link_section = ?, sort_order = ? WHERE id = ?");
         return $stmt->execute([$title, $url, $section, $sort_order, $id]);
     } catch(PDOException $e) {
@@ -1386,8 +1395,11 @@ function updateFooterLink($id, $title, $url, $section, $sort_order) {
 
 // Add new footer link
 function addFooterLink($title, $url, $section, $sort_order = 0) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("INSERT INTO footer_links (link_title, link_url, link_section, sort_order) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$title, $url, $section, $sort_order]);
     } catch(PDOException $e) {
@@ -1397,8 +1409,11 @@ function addFooterLink($title, $url, $section, $sort_order = 0) {
 
 // Delete footer link
 function deleteFooterLink($id) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("DELETE FROM footer_links WHERE id = ?");
         return $stmt->execute([$id]);
     } catch(PDOException $e) {

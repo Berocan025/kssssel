@@ -58,25 +58,25 @@ $about_image = getSetting('about_image', '');
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_projects); ?>">0+</div>
-                                    <div class="stat-label">Aktif Platform</div>
+                                    <div class="stat-label"><?php echo getContent('stat_projects_label', 'Aktif Platform'); ?></div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0M+</div>
-                                    <div class="stat-label">Aktif Oyuncu</div>
+                                    <div class="stat-label"><?php echo getContent('stat_clients_label', 'Aktif Oyuncu'); ?></div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_years); ?>">0+</div>
-                                    <div class="stat-label">Yıllık Deneyim</div>
+                                    <div class="stat-label"><?php echo getContent('stat_years_label', 'Yıllık Deneyim'); ?></div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_awards); ?>">0+</div>
-                                    <div class="stat-label">Endüstri Ödülü</div>
+                                    <div class="stat-label"><?php echo getContent('stat_awards_label', 'Endüstri Ödülü'); ?></div>
                                 </div>
                             </div>
                         </div>

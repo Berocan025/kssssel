@@ -83,7 +83,7 @@
             
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0 footer-copyright">© <?php echo date('Y'); ?> <?php echo getSetting('site_brand', 'BERAT K - R10'); ?>. Tüm hakları saklıdır.</p>
+                    <p class="mb-0 footer-copyright"><?php echo getContent('footer_copyright', '© ' . date('Y') . ' ' . getSetting('site_brand', 'BERAT K - R10') . '. Tüm hakları saklıdır.'); ?></p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <p class="mb-0 footer-dev">

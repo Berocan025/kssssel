@@ -51,14 +51,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-// Get all contents
-$contents = getAllContents();
+// Get all contents with optional filtering
+$page_filter = isset($_GET['page']) ? clean($_GET['page']) : '';
+if ($page_filter) {
+    $contents = getPageContents($page_filter);
+} else {
+    $contents = getAllContents();
+}
 
 // Group contents by page location
 $grouped_contents = [];
 foreach ($contents as $content) {
     $grouped_contents[$content['page_location']][] = $content;
 }
+
+// Get all page locations for filter dropdown
+$all_locations = [];
+foreach (getAllContents() as $content) {
+    if (!in_array($content['page_location'], $all_locations)) {
+        $all_locations[] = $content['page_location'];
+    }
+}
+sort($all_locations);
 
 include 'includes/header.php';
 ?>
@@ -70,6 +84,41 @@ include 'includes/header.php';
                 <div class="page-header">
                     <h1><i class="fas fa-edit me-2"></i>İçerik Yönetimi</h1>
                     <p class="text-muted">Site üzerindeki tüm yazıları ve içerikleri buradan düzenleyebilirsiniz.</p>
+                    
+                    <!-- Sayfa Filtresi -->
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <select class="form-control" onchange="window.location.href='?page=' + this.value">
+                                <option value="">🌐 Tüm Sayfalar</option>
+                                <?php foreach ($all_locations as $location): ?>
+                                    <option value="<?php echo htmlspecialchars($location); ?>" <?php echo ($page_filter === $location) ? 'selected' : ''; ?>>
+                                        <?php 
+                                        $location_names = [
+                                            'index' => '🏠 Ana Sayfa',
+                                            'about' => '👤 Hakkımda',
+                                            'services' => '🔧 Hizmetler',
+                                            'contact' => '📞 İletişim',
+                                            'footer' => '⬇️ Footer',
+                                            'stats' => '📊 İstatistikler',
+                                            'general' => '🌟 Genel',
+                                            'buttons' => '🔘 Butonlar',
+                                            'games' => '🎮 Oyunlar',
+                                            'bonus' => '🎁 Bonuslar',
+                                            'meta' => '🔍 Meta Etiketleri'
+                                        ];
+                                        echo isset($location_names[$location]) ? $location_names[$location] : ucfirst($location);
+                                        ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>İpucu:</strong> Bu sayfadan tüm metinleri düzenleyebilirsiniz. Değişiklikler anında siteye yansıyacaktır.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <?php if ($success_message): ?>

@@ -81,25 +81,25 @@ $page_title = 'Ana Sayfa';
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_projects); ?>">0+</span>
-                    <div class="stat-label">Aktif Platform</div>
+                    <div class="stat-label"><?php echo getContent('stat_projects_label', 'Aktif Platform'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0M+</span>
-                    <div class="stat-label">Aktif Oyuncu</div>
+                    <div class="stat-label"><?php echo getContent('stat_clients_label', 'Aktif Oyuncu'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_years); ?>">0+</span>
-                    <div class="stat-label">Yıllık Deneyim</div>
+                    <div class="stat-label"><?php echo getContent('stat_years_label', 'Yıllık Deneyim'); ?></div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_awards); ?>">0+</span>
-                    <div class="stat-label">Endüstri Ödülü</div>
+                    <div class="stat-label"><?php echo getContent('stat_awards_label', 'Endüstri Ödülü'); ?></div>
                 </div>
             </div>
         </div>
