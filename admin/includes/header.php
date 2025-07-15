@@ -7,20 +7,30 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Casino Theme Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #fd79a8;
-            --dark-bg: #0d1117;
-            --dark-card: #161b22;
-            --dark-border: #21262d;
-            --text-light: #f0f6fc;
-            --text-muted: #c9d1d9;
-            --gradient: linear-gradient(135deg, #6c5ce7, #fd79a8);
-            --gradient-hover: linear-gradient(135deg, #5f3dc4, #e84393);
-            --shadow: 0 8px 32px rgba(108, 92, 231, 0.1);
+            /* Casino Admin Theme Colors */
+            --primary-color: #dc2626;
+            --secondary-color: #fbbf24;
+            --accent-color: #059669;
+            --dark-bg: #0a0a0a;
+            --dark-card: #1a1a1a;
+            --dark-border: #2d2d2d;
+            --text-light: #f8fafc;
+            --text-muted: #d1d5db;
+            --text-gold: #fbbf24;
+            --gradient: linear-gradient(135deg, #dc2626, #fbbf24);
+            --gradient-hover: linear-gradient(135deg, #b91c1c, #f59e0b);
+            --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
+            --shadow: 0 8px 32px rgba(220, 38, 38, 0.2);
+            --shadow-hover: 0 12px 48px rgba(220, 38, 38, 0.4);
+            --glow: 0 0 20px rgba(220, 38, 38, 0.5);
+            --glow-gold: 0 0 20px rgba(251, 191, 36, 0.5);
         }
         
         * {
@@ -30,11 +40,39 @@
         }
         
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
+            font-family: 'Orbitron', 'Roboto', sans-serif;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+            background-attachment: fixed;
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.03) 0%, transparent 50%);
+            background-size: 200px 200px, 300px 300px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--text-gold) !important;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Orbitron', serif;
         }
         
         /* Sidebar Styles */
