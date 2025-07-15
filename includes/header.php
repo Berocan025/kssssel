@@ -81,21 +81,24 @@
     }
     
     <?php if(getSetting('dark_mode', '1') == '0'): ?>
-    /* Casino Light mode styles */
+    /* Casino Platform CEO Light mode styles */
     :root {
         --dark-bg: #f8f8f8;
-        --dark-card: #ffffff;
+        --dark-secondary: #ffffff;
+        --dark-card: rgba(255, 255, 255, 0.95);
         --dark-border: #d1d5db;
         --text-light: #1f2937;
         --text-muted: #6b7280;
         --text-gold: #dc2626;
+        --gradient-bg: linear-gradient(135deg, #f8f8f8, #ffffff);
+        --gradient-bg-alt: linear-gradient(45deg, #ffffff, #f8f8f8);
     }
     
     body {
         background: 
             radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
             radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 50%),
-            linear-gradient(180deg, #f8f8f8 0%, #ffffff 100%) !important;
+            var(--gradient-bg) !important;
         background-attachment: fixed !important;
         color: var(--text-light) !important;
     }
@@ -140,21 +143,21 @@
                         <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>" href="about.php">Hakkımda</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'active' : ''; ?>" href="services.php">Hizmetler</a>
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'services.php' ? 'active' : ''; ?>" href="services.php">Platform Hizmetleri</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'active' : ''; ?>" href="portfolio.php">Çalışmalar</a>
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'portfolio.php' ? 'active' : ''; ?>" href="portfolio.php">Platformlar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'products.php' ? 'active' : ''; ?>" href="products.php">Ürünler</a>
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'products.php' ? 'active' : ''; ?>" href="products.php">Premium Ürünler</a>
                     </li>
                     <?php if(getSetting('blog_enabled', '1') == '1'): ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'blog.php' ? 'active' : ''; ?>" href="blog.php">Blog</a>
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'blog.php' ? 'active' : ''; ?>" href="blog.php">Platform Haberleri</a>
                     </li>
                     <?php endif; ?>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>" href="contact.php">İletişim</a>
+                        <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>" href="contact.php">İş Birliği</a>
                     </li>
                     <li class="nav-item">
                         <button class="theme-toggle-btn" id="themeToggle" title="Tema Değiştir">

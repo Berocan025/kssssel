@@ -14,17 +14,20 @@
     
     <style>
         :root {
-            /* Casino Admin Theme Colors */
+            /* Casino Platform CEO Admin Theme Colors */
             --primary-color: #dc2626;
             --secondary-color: #fbbf24;
             --accent-color: #059669;
-            --dark-bg: #0a0a0a;
-            --dark-card: #1a1a1a;
+            --dark-bg: #161616;
+            --dark-secondary: #021526;
+            --dark-card: rgba(22, 22, 22, 0.95);
             --dark-border: #2d2d2d;
             --text-light: #f8fafc;
             --text-muted: #d1d5db;
             --text-gold: #fbbf24;
             --gradient: linear-gradient(135deg, #dc2626, #fbbf24);
+            --gradient-bg: linear-gradient(135deg, #161616, #021526);
+            --gradient-bg-alt: linear-gradient(45deg, #021526, #161616);
             --gradient-hover: linear-gradient(135deg, #b91c1c, #f59e0b);
             --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b);
             --shadow: 0 8px 32px rgba(220, 38, 38, 0.2);
@@ -42,9 +45,9 @@
         body {
             font-family: 'Orbitron', 'Roboto', sans-serif;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+                radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.06) 0%, transparent 50%),
+                var(--gradient-bg);
             background-attachment: fixed;
             color: var(--text-light);
             line-height: 1.6;
@@ -59,13 +62,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background: 
                 radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.03) 0%, transparent 50%);
-            background-size: 200px 200px, 300px 300px;
+                radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
+                var(--gradient-bg-alt);
+            background-size: 400px 400px, 300px 300px, 100% 100%;
             pointer-events: none;
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.4;
         }
         
         h1, h2, h3, h4, h5, h6 {

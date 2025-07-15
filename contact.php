@@ -9,7 +9,7 @@
 require_once 'includes/functions.php';
 checkMaintenanceMode();
 trackVisitor(); // Ziyaretçi sayacı
-$page_title = 'İletişim';
+$page_title = 'İş Birliği';
 
 $success_message = '';
 $error_message = '';
@@ -55,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h1 class="display-4 mb-4">
-                    <span class="text-gradient">İletişime Geçin</span>
+                    <span class="text-gradient">İş Birliği Yapalım</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('contact_intro', 'Projeniz hakkında konuşmak için benimle iletişime geçin. {site_brand} olarak size en iyi hizmeti sunmak için buradayım.'); ?>
+                    <?php echo getSettingWithVariables('contact_intro', 'Kumar endüstrisinde iş birliği fırsatları için benimle iletişime geçin. {site_brand} olarak güvenli ve karlı platformlar kurmanızda size yardımcı olmak için buradayım.'); ?>
                 </p>
             </div>
         </div>

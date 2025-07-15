@@ -9,7 +9,7 @@
 require_once 'includes/functions.php';
 checkMaintenanceMode();
 trackVisitor(); // Ziyaretçi sayacı
-$page_title = 'Çalışmalarım';
+$page_title = 'Platformlarım';
 
 $filter = isset($_GET['filter']) ? clean($_GET['filter']) : 'all';
 $search = isset($_GET['search']) ? clean($_GET['search']) : '';
@@ -56,10 +56,10 @@ try {
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h1 class="display-4 mb-4">
-                    <span class="text-gradient">Çalışmalarım</span>
+                    <span class="text-gradient">Platformlarım</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('portfolio_intro', '{site_brand} olarak gerçekleştirdiğim projeler ve yaratıcı çözümler. Her proje, teknoloji ve tasarımın mükemmel birleşimi.'); ?>
+                    <?php echo getSettingWithVariables('portfolio_intro', '{site_brand} olarak yönettiğim kumar platformları ve başarılı projeler. Her platform, güvenlik ve kullanıcı deneyiminin mükemmel birleşimi.'); ?>
                 </p>
             </div>
         </div>
@@ -84,7 +84,7 @@ try {
                     <form method="GET" class="d-flex">
                         <input type="hidden" name="filter" value="<?php echo htmlspecialchars($filter); ?>">
                         <input type="text" name="search" class="form-control me-2" 
-                               placeholder="Projeler içinde ara..." 
+                               placeholder="Platformlar içinde ara..." 
                                value="<?php echo htmlspecialchars($search); ?>">
                         <button type="submit" class="btn btn-gradient">
                             <i class="fas fa-search"></i>

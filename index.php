@@ -37,15 +37,15 @@ $page_title = 'Ana Sayfa';
                 
                 <div class="hero-content animate-on-scroll">
                     <h1 style="margin-bottom: 0.2rem; line-height: 1.2;">
-                        Merhaba, Ben<br>
+                        Hoş Geldiniz, Ben<br>
                         <span class="text-gradient"><?php echo getSetting('hero_title', 'BERAT K'); ?> - <?php echo getSetting('hero_subtitle', 'R10'); ?></span>
                     </h1>
                     <p class="lead" style="margin-top: 0.3rem;">
-                        <?php echo getSetting('hero_description', 'Profesyonel yazılım geliştirici olarak modern web uygulamaları, mobil çözümler ve yaratıcı dijital deneyimler tasarlıyorum.'); ?>
+                        <?php echo getSetting('hero_description', 'Kumar platformu CEO\'su ve yayıncı olarak, endüstrinin en güvenilir ve yenilikçi oyun deneyimlerini sunuyorum. Milyonlarca oyuncunun güvendiği platformların lideri.'); ?>
                     </p>
                     <div class="hero-buttons">
-                        <a href="portfolio.php" class="btn btn-gradient me-3">Çalışmalarım</a>
-                        <a href="contact.php" class="btn btn-outline-gradient">İletişim</a>
+                        <a href="portfolio.php" class="btn btn-gradient me-3">Platformlarım</a>
+                        <a href="contact.php" class="btn btn-outline-gradient">İş Birliği</a>
                     </div>
                 </div>
             </div>
@@ -54,13 +54,13 @@ $page_title = 'Ana Sayfa';
     
     <div class="floating-elements">
         <div class="floating-element" style="top: 20%; left: 10%; animation-delay: 0s;">
-            <i class="fab fa-html5" style="font-size: 50px; color: var(--primary-color);"></i>
+            <i class="fas fa-crown" style="font-size: 50px; color: var(--primary-color);"></i>
         </div>
         <div class="floating-element" style="top: 40%; right: 15%; animation-delay: 2s;">
-            <i class="fab fa-js-square" style="font-size: 40px; color: var(--secondary-color);"></i>
+            <i class="fas fa-coins" style="font-size: 40px; color: var(--secondary-color);"></i>
         </div>
         <div class="floating-element" style="bottom: 30%; left: 20%; animation-delay: 4s;">
-            <i class="fab fa-php" style="font-size: 45px; color: var(--primary-color);"></i>
+            <i class="fas fa-trophy" style="font-size: 45px; color: var(--primary-color);"></i>
         </div>
     </div>
 </section>
@@ -81,13 +81,13 @@ $page_title = 'Ana Sayfa';
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_projects); ?>">0+</span>
-                    <div class="stat-label">Tamamlanan Proje</div>
+                    <div class="stat-label">Aktif Platform</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
-                    <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0+</span>
-                    <div class="stat-label">Mutlu Müşteri</div>
+                    <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0M+</span>
+                    <div class="stat-label">Aktif Oyuncu</div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -99,7 +99,7 @@ $page_title = 'Ana Sayfa';
             <div class="col-lg-3 col-md-6">
                 <div class="stat-item animate-on-scroll">
                     <span class="stat-number" data-count="<?php echo htmlspecialchars($stat_awards); ?>">0+</span>
-                    <div class="stat-label">Ödül & Sertifika</div>
+                    <div class="stat-label">Endüstri Ödülü</div>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@ $page_title = 'Ana Sayfa';
 
 <section class="py-5">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Hizmetlerim</h2>
+        <h2 class="section-title animate-on-scroll">Platform Hizmetlerim</h2>
         
         <div class="row">
             <?php
@@ -133,30 +133,30 @@ $page_title = 'Ana Sayfa';
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="service-card animate-on-scroll">
                         <div class="service-icon">
-                            <i class="fas fa-code"></i>
+                            <i class="fas fa-dice"></i>
                         </div>
-                        <h4>Web Geliştirme</h4>
-                        <p>Modern ve responsive web siteleri tasarlıyor ve geliştiriyorum.</p>
+                        <h4>Casino Platformları</h4>
+                        <p>Güvenli ve adil oyun deneyimi sunan premium casino platformları işletiyorum.</p>
                         <a href="services.php" class="btn btn-outline-gradient btn-sm">Detaylar</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="service-card animate-on-scroll">
                         <div class="service-icon">
-                            <i class="fas fa-mobile-alt"></i>
+                            <i class="fas fa-broadcast-tower"></i>
                         </div>
-                        <h4>Mobil Uygulama</h4>
-                        <p>iOS ve Android platformları için native ve hybrid uygulamalar.</p>
+                        <h4>Yayıncılık Hizmetleri</h4>
+                        <p>Canlı casino yayınları ve etkileşimli oyun deneyimleri sunuyorum.</p>
                         <a href="services.php" class="btn btn-outline-gradient btn-sm">Detaylar</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="service-card animate-on-scroll">
                         <div class="service-icon">
-                            <i class="fas fa-shopping-cart"></i>
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h4>E-Ticaret</h4>
-                        <p>Güvenli ve kullanıcı dostu e-ticaret çözümleri sunuyorum.</p>
+                        <h4>Güvenlik & Uyumluluk</h4>
+                        <p>Sektörün en yüksek güvenlik standartları ve yasal uyumluluk sağlıyorum.</p>
                         <a href="services.php" class="btn btn-outline-gradient btn-sm">Detaylar</a>
                     </div>
                 </div>
@@ -164,14 +164,14 @@ $page_title = 'Ana Sayfa';
         </div>
         
         <div class="text-center mt-4">
-            <a href="services.php" class="btn btn-gradient">Tüm Hizmetler</a>
+            <a href="services.php" class="btn btn-gradient">Tüm Platform Hizmetleri</a>
         </div>
     </div>
 </section>
 
-<section class="py-5" style="background: rgba(108, 92, 231, 0.05);">
+<section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Son Projelerim</h2>
+        <h2 class="section-title animate-on-scroll">Platformlarım</h2>
         
         <div class="row">
             <?php
@@ -212,7 +212,7 @@ $page_title = 'Ana Sayfa';
             else:
             ?>
                 <div class="col-12 text-center">
-                    <p class="no-content-text">Henüz proje eklenmemiş.</p>
+                    <p class="no-content-text">Henüz platform eklenmemiş.</p>
                     <a href="admin/login.php" class="btn btn-outline-gradient">Admin Paneli</a>
                 </div>
             <?php endif; ?>
@@ -220,7 +220,7 @@ $page_title = 'Ana Sayfa';
         
         <?php if (!empty($projects)): ?>
         <div class="text-center mt-4">
-            <a href="portfolio.php" class="btn btn-gradient">Tüm Projeler</a>
+            <a href="portfolio.php" class="btn btn-gradient">Tüm Platformlar</a>
         </div>
         <?php endif; ?>
     </div>
@@ -228,7 +228,7 @@ $page_title = 'Ana Sayfa';
 
 <section class="py-5">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Ürünlerim</h2>
+        <h2 class="section-title animate-on-scroll">Premium Ürünlerim</h2>
         
         <div class="row">
             <?php
@@ -268,23 +268,23 @@ $page_title = 'Ana Sayfa';
             else:
             ?>
                 <div class="col-12 text-center">
-                    <p class="no-content-text">Henüz ürün eklenmemiş.</p>
+                    <p class="no-content-text">Henüz premium ürün eklenmemiş.</p>
                 </div>
             <?php endif; ?>
         </div>
         
         <?php if (!empty($products)): ?>
         <div class="text-center mt-4">
-            <a href="products.php" class="btn btn-gradient">Tüm Ürünler</a>
+            <a href="products.php" class="btn btn-gradient">Tüm Premium Ürünler</a>
         </div>
         <?php endif; ?>
     </div>
 </section>
 
 <?php if(getSetting('blog_enabled', '1') == '1'): ?>
-<section class="py-5" style="background: rgba(108, 92, 231, 0.05);">
+<section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Son Blog Yazıları</h2>
+        <h2 class="section-title animate-on-scroll">Platform Haberleri</h2>
         
         <div class="row">
             <?php
@@ -355,7 +355,7 @@ $page_title = 'Ana Sayfa';
         
         <?php if (!empty($blog_posts)): ?>
         <div class="text-center mt-4">
-            <a href="blog.php" class="btn btn-gradient">Tüm Blog Yazıları</a>
+            <a href="blog.php" class="btn btn-gradient">Tüm Platform Haberleri</a>
         </div>
         <?php endif; ?>
     </div>
@@ -366,11 +366,11 @@ $page_title = 'Ana Sayfa';
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-8">
-                <h3 class="text-gradient mb-3"><?php echo getSetting('cta_title', 'Projene Başlayalım!'); ?></h3>
-                <p class="mb-0 cta-text"><?php echo getSettingWithVariables('cta_text', 'Fikrini gerçeğe dönüştürmek için benimle iletişime geç. {site_brand} ile profesyonel çözümler.'); ?></p>
+                <h3 class="text-gradient mb-3"><?php echo getSetting('cta_title', 'İş Birliğine Başlayalım!'); ?></h3>
+                <p class="mb-0 cta-text"><?php echo getSettingWithVariables('cta_text', 'Kumar endüstrisinde birlikte büyümek için benimle iletişime geç. {site_brand} ile güvenli ve karlı platformlar kuralım.'); ?></p>
             </div>
             <div class="col-lg-4 text-lg-end">
-                <a href="contact.php" class="btn btn-gradient btn-lg">İletişime Geç</a>
+                <a href="contact.php" class="btn btn-gradient btn-lg">İş Birliği Yap</a>
             </div>
         </div>
     </div>

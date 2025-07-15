@@ -9,7 +9,7 @@
 require_once 'includes/functions.php';
 checkMaintenanceMode();
 trackVisitor(); // Ziyaretçi sayacı
-$page_title = 'Hizmetlerim';
+$page_title = 'Platform Hizmetlerim';
 
 $services = getServices();
 ?>
@@ -21,10 +21,10 @@ $services = getServices();
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h1 class="display-4 mb-4">
-                    <span class="text-gradient">Hizmetlerim</span>
+                    <span class="text-gradient">Platform Hizmetlerim</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('services_intro', '{site_brand} olarak sunduğum profesyonel yazılım geliştirme hizmetleri. Modern teknolojiler ile yaratıcı çözümler.'); ?>
+                    <?php echo getSettingWithVariables('services_intro', '{site_brand} olarak sunduğum profesyonel kumar platform hizmetleri. Güvenli, karlı ve adil oyun deneyimleri.'); ?>
                 </p>
             </div>
         </div>
@@ -39,7 +39,7 @@ $services = getServices();
                             </div>
                             <h4><?php echo htmlspecialchars($service['title']); ?></h4>
                             <p><?php echo htmlspecialchars($service['description']); ?></p>
-                            <a href="contact.php" class="btn btn-outline-gradient">Teklif Al</a>
+                            <a href="contact.php" class="btn btn-outline-gradient">İş Birliği</a>
                         </div>
                     </div>
                 <?php endforeach; ?>

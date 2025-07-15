@@ -9,7 +9,7 @@
 require_once 'includes/functions.php';
 checkMaintenanceMode();
 trackVisitor(); // Ziyaretçi sayacı
-$page_title = 'Ürünler';
+$page_title = 'Premium Ürünler';
 
 $products = getProducts();
 ?>
@@ -21,10 +21,10 @@ $products = getProducts();
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h1 class="display-4 mb-4">
-                    <span class="text-gradient">Ürünlerim</span>
+                    <span class="text-gradient">Premium Ürünlerim</span>
                 </h1>
                 <p class="lead text-muted">
-                    <?php echo getSettingWithVariables('products_intro', '{site_brand} tarafından geliştirilmiş hazır yazılım çözümleri. Kaliteli, güvenilir ve kullanıma hazır ürünler.'); ?>
+                    <?php echo getSettingWithVariables('products_intro', '{site_brand} tarafından özel olarak tasarlanan premium kumar ürünleri. Lüks, güvenilir ve karlı çözümler.'); ?>
                 </p>
             </div>
         </div>

@@ -13,11 +13,11 @@ $page_title = 'Hakkımda';
 
 // Get about settings from admin
 $about_title = getSetting('about_title', 'Hakkımda');
-$about_subtitle = getSetting('about_subtitle', 'Full Stack Developer & UI/UX Designer');
-$about_description = getSetting('about_description', 'Yazılım geliştirme alanında uzmanlaşmış bir profesyonelim. Modern web teknolojileri, mobil uygulama geliştirme ve kullanıcı deneyimi tasarımı konularında geniş deneyime sahibim.');
-$about_skills = getSetting('about_skills', 'HTML5, CSS3, JavaScript, React, Vue.js, PHP, Laravel, Node.js, Python, MySQL, PostgreSQL, MongoDB, Docker, Git, AWS');
-$about_experience = getSetting('about_experience', '2019 - Şu an: Senior Full Stack Developer\n2017 - 2019: Frontend Developer\n2015 - 2017: Junior Web Developer');
-$about_education = getSetting('about_education', '2015: Bilgisayar Mühendisliği Lisans\n2020: AWS Solutions Architect Sertifikası\n2021: Google Analytics Sertifikası');
+$about_subtitle = getSetting('about_subtitle', 'Kumar Platform CEO\'su & Endüstri Yayıncısı');
+$about_description = getSetting('about_description', 'Kumar endüstrisinde uzmanlaşmış bir CEO ve yayıncıyım. Güvenli, adil ve karlı oyun platformları inşa etme konusunda geniş deneyime sahibim. Milyonlarca oyuncunun güvendiği platformların lideri olarak, endüstrinin en yüksek standartlarını belirliyorum.');
+$about_skills = getSetting('about_skills', 'Platform Yönetimi, Risk Analizi, Oyun Güvenliği, Canlı Yayın, Kullanıcı Deneyimi, Finansal Planlama, Yasal Uyumluluk, Pazarlama Stratejileri, Veri Analizi, İş Geliştirme');
+$about_experience = getSetting('about_experience', '2020 - Şu an: Kumar Platform CEO\'su\n2018 - 2020: Platform Geliştirme Direktörü\n2016 - 2018: Kumar Yayıncısı\n2014 - 2016: Oyun Analisti');
+$about_education = getSetting('about_education', '2014: İşletme Yönetimi Lisans\n2019: Kumar Endüstrisi Liderlik Sertifikası\n2021: Finansal Risk Yönetimi Uzmanlığı\n2022: Dijital Pazarlama Uzmanlığı');
 $about_image = getSetting('about_image', '');
 ?>
 
@@ -58,13 +58,13 @@ $about_image = getSetting('about_image', '');
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_projects); ?>">0+</div>
-                                    <div class="stat-label">Tamamlanan Proje</div>
+                                    <div class="stat-label">Aktif Platform</div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
-                                    <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0+</div>
-                                    <div class="stat-label">Mutlu Müşteri</div>
+                                    <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_clients); ?>">0M+</div>
+                                    <div class="stat-label">Aktif Oyuncu</div>
                                 </div>
                             </div>
                             <div class="col-md-3 col-6 mb-3">
@@ -76,7 +76,7 @@ $about_image = getSetting('about_image', '');
                             <div class="col-md-3 col-6 mb-3">
                                 <div class="stat-box text-center">
                                     <div class="stat-number text-gradient h2" data-count="<?php echo htmlspecialchars($stat_awards); ?>">0+</div>
-                                    <div class="stat-label">Ödül & Sertifika</div>
+                                    <div class="stat-label">Endüstri Ödülü</div>
                                 </div>
                             </div>
                         </div>
@@ -88,9 +88,9 @@ $about_image = getSetting('about_image', '');
 </section>
 
 <?php if($about_skills): ?>
-<section class="py-5" style="background: rgba(108, 92, 231, 0.05);">
+<section class="py-5" style="background: rgba(220, 38, 38, 0.05);">
     <div class="container">
-        <h2 class="section-title animate-on-scroll">Yeteneklerim</h2>
+        <h2 class="section-title animate-on-scroll">Uzmanlık Alanlarım</h2>
         
         <div class="row">
             <div class="col-lg-10 mx-auto">
@@ -115,16 +115,16 @@ $about_image = getSetting('about_image', '');
 </section>
 <?php endif; ?>
 
-<!-- İş Deneyimi Bölümü -->
+<!-- Kariyer Yolculuğu Bölümü -->
 <?php if($about_experience): ?>
-<section class="py-5" style="background: rgba(108, 92, 231, 0.03);">
+<section class="py-5" style="background: rgba(220, 38, 38, 0.03);">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title animate-on-scroll">
-                    <i class="fas fa-briefcase me-3"></i>İş Deneyimim
+                    <i class="fas fa-crown me-3"></i>Kariyer Yolculuğum
                 </h2>
-                <p class="lead text-muted">Profesyonel kariyerimde edindiğim deneyimler ve çalıştığım pozisyonlar.</p>
+                <p class="lead text-muted">Kumar endüstrisinde liderlik pozisyonlarında edindiğim deneyimler ve başarılarım.</p>
             </div>
         </div>
         
@@ -178,9 +178,9 @@ $about_image = getSetting('about_image', '');
         <div class="row">
             <div class="col-lg-8 mx-auto text-center mb-5">
                 <h2 class="section-title animate-on-scroll">
-                    <i class="fas fa-graduation-cap me-3"></i>Eğitim & Sertifikalarım
+                    <i class="fas fa-trophy me-3"></i>Eğitim & Sertifikalarım
                 </h2>
-                <p class="lead text-muted">Aldığım eğitimler, sertifikalar ve sürekli gelişim yolculuğum.</p>
+                <p class="lead text-muted">Kumar endüstrisinde aldığım eğitimler, uzmanlık sertifikaları ve sürekli gelişim yolculuğum.</p>
             </div>
         </div>
         

@@ -1,15 +1,18 @@
 :root {
-    /* Casino Theme Colors */
+    /* Casino Platform CEO Theme Colors */
     --primary-color: #dc2626; /* Kırmızı */
     --secondary-color: #fbbf24; /* Altın */
     --accent-color: #059669; /* Yeşil */
-    --dark-bg: #0a0a0a; /* Çok koyu siyah */
-    --dark-card: #1a1a1a; /* Koyu gri */
+    --dark-bg: #161616; /* Özel koyu gri */
+    --dark-secondary: #021526; /* Özel koyu mavi */
+    --dark-card: rgba(22, 22, 22, 0.95); /* Transparan koyu gri */
     --dark-border: #2d2d2d; /* Orta gri */
     --text-light: #f8fafc; /* Açık beyaz */
     --text-muted: #d1d5db; /* Açık gri */
     --text-gold: #fbbf24; /* Altın yazı */
     --gradient: linear-gradient(135deg, #dc2626, #fbbf24); /* Kırmızı-Altın gradient */
+    --gradient-bg: linear-gradient(135deg, #161616, #021526); /* Ana arka plan gradient */
+    --gradient-bg-alt: linear-gradient(45deg, #021526, #161616); /* Alternatif arka plan */
     --gradient-hover: linear-gradient(135deg, #b91c1c, #f59e0b); /* Hover gradient */
     --gradient-gold: linear-gradient(135deg, #fbbf24, #f59e0b); /* Altın gradient */
     --gradient-green: linear-gradient(135deg, #059669, #047857); /* Yeşil gradient */
@@ -27,11 +30,11 @@
 }
 
 body {
-    font-family: 'Orbitron', 'Roboto', sans-serif; /* Casino tarzı font */
+    font-family: 'Orbitron', 'Roboto', sans-serif; /* Casino Platform CEO font */
     background: 
-        radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+        radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.06) 0%, transparent 50%),
+        var(--gradient-bg);
     background-attachment: fixed;
     color: var(--text-light);
     line-height: 1.7;
@@ -40,7 +43,7 @@ body {
     position: relative;
 }
 
-/* Casino Pattern Background */
+/* Casino Platform Pattern Background */
 body::before {
     content: '';
     position: fixed;
@@ -48,13 +51,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: 
-        radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
-    background-size: 200px 200px, 300px 300px;
+    background: 
+        radial-gradient(circle at 25% 25%, rgba(220, 38, 38, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
+        var(--gradient-bg-alt);
+    background-size: 400px 400px, 300px 300px, 100% 100%;
     pointer-events: none;
     z-index: -1;
-    opacity: 0.7;
+    opacity: 0.4;
 }
 
 /* Improved text contrast for better readability */
@@ -119,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-dark-custom {
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(20, 20, 20, 0.95) 100%) !important;
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0.95) 0%, rgba(2, 21, 38, 0.9) 100%) !important;
     border-bottom: 2px solid var(--primary-color);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -217,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-custom {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     transition: all 0.4s ease;
@@ -378,7 +382,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .service-card {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     padding: 35px;
@@ -432,7 +436,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-card {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     overflow: hidden;
@@ -512,7 +516,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-card {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     overflow: hidden;
@@ -577,7 +581,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Blog Card Styles */
 .blog-card {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     overflow: hidden;
@@ -697,7 +701,7 @@ h1, h2, h3, h4, h5, h6 {
 .footer-section {
     margin-top: 80px;
     border-top: 3px solid var(--primary-color);
-    background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(22, 22, 22, 0.95) 0%, rgba(2, 21, 38, 0.9) 100%);
     position: relative;
 }
 
@@ -889,7 +893,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-form {
-    background: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.85) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 20px;
     padding: 45px;
@@ -908,7 +912,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-control {
-    background-color: rgba(10, 10, 10, 0.8);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.8) 0%, rgba(2, 21, 38, 0.6) 100%);
     border: 2px solid var(--dark-border);
     border-radius: 15px;
     color: var(--text-light);
@@ -919,7 +923,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-control:focus {
-    background-color: rgba(10, 10, 10, 0.9);
+    background: linear-gradient(145deg, rgba(22, 22, 22, 0.9) 0%, rgba(2, 21, 38, 0.8) 100%);
     border-color: var(--primary-color);
     color: var(--text-light);
     box-shadow: 0 0 0 0.2rem rgba(220, 38, 38, 0.25), var(--glow);
