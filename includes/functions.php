@@ -6,7 +6,10 @@
  * Created by: BERAT K - R10
  */
 
-session_start();
+// Start session only if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../config/database.php';
 
 function clean($data) {
@@ -1270,8 +1273,11 @@ Bu e-posta " . $site_brand . " portfolio website iletişim formu tarafından oto
 
 // Get content by key
 function getContent($key, $default = '') {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("SELECT content_text FROM site_contents WHERE content_key = ? AND is_active = 1");
         $stmt->execute([$key]);
         $result = $stmt->fetchColumn();
@@ -1299,8 +1305,11 @@ function getContentWithVariables($key, $default = '') {
 
 // Get all contents for a specific page
 function getPageContents($page_location) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("SELECT * FROM site_contents WHERE page_location = ? AND is_active = 1 ORDER BY sort_order, content_title");
         $stmt->execute([$page_location]);
         return $stmt->fetchAll();
@@ -1311,8 +1320,11 @@ function getPageContents($page_location) {
 
 // Get all site contents for admin
 function getAllContents() {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->query("SELECT * FROM site_contents ORDER BY page_location, sort_order, content_title");
         return $stmt->fetchAll();
     } catch(PDOException $e) {
@@ -1322,8 +1334,11 @@ function getAllContents() {
 
 // Update content
 function updateContent($id, $content_text) {
-    try {
+    global $pdo;
+    if (!$pdo) {
         require_once __DIR__ . '/../config/database.php';
+    }
+    try {
         $stmt = $pdo->prepare("UPDATE site_contents SET content_text = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?");
         return $stmt->execute([$content_text, $id]);
     } catch(PDOException $e) {
@@ -1413,18 +1428,4 @@ function deleteSiteContent($id) {
     }
 }
 
-// Get content with variable replacement
-function getContentWithVariables($key, $default = '') {
-    $content = getContent($key, $default);
-    
-    // Replace variables
-    $variables = [
-        '{site_brand}' => getSetting('site_brand', 'BERAT K - R10'),
-        '{current_year}' => date('Y'),
-        '{admin_name}' => getSetting('admin_name', 'BERAT K'),
-        '{site_email}' => getSetting('site_email', 'info@beratk.com')
-    ];
-    
-    return str_replace(array_keys($variables), array_values($variables), $content);
-}
 ?>
